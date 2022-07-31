@@ -1,0 +1,24 @@
+0.2.7-dev:
+    +Suporte para execução em tela cheia;
+    +Corrigidos diversos bugs referentes as janelas;
+    +[bug]Janelas sem bordas;
+0.2.6-dev:
+    +Novo método de pintura;
+0.2.5-dev:
+    +Adicionado ProgressBar;
+    +Novas detecções de colisão;
+    +Correções no AudioPlayer;
+    +Suporte a mapas XML;
+    +Correções por todo GUI;
+    +Mais de 20 correções de bug;
+0.2.1-dev:
+    +Novo component ScaledImagePanel, painel que exibe uma imagem mantendo as proporções originais;
+    +Adicionado getFontMetrics ao Drawer;
+    +Possibilidade de alterar os ticks/s e frames/s durante durante a execução;
+0.2-dev:
+    +Suporte completo a mp3;
+    +Mp3 formato padrão para áudios;
+    +Suporte a WAV movido para WAVAudioPlayer;
+    +WAVAudioPlayer marcado como deprecated;
+0.1-dev:
+    +Primeiro release;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="dist/lib/mp3spi1.9.5.jar"/>
+	<classpathentry kind="lib" path="dist/lib/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="dist/lib/xmlpull-1.1.3.1.jar"/>
+	<classpathentry kind="lib" path="dist/lib/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="dist/lib/xstream-1.4.11.1.jar"/>
+	<classpathentry kind="lib" path="dist/ncept-engine.jar"/>
+	<classpathentry kind="lib" path="store/SCHEDULAR.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
