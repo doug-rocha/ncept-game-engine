@@ -14,11 +14,13 @@ import java.util.ArrayList;
  */
 @XStreamAlias("tileArea")
 public class MapTileArea extends MapTile {
-    
+
     public int quantX, quantY;
     public boolean random;
-    
-    public MapTile[] getMapTiles() {
+
+    public MapTile[] getMapTiles(double mod_resol) {
+        sx = (int) (sx * mod_resol);
+        sy = (int) (sy * mod_resol);
         ArrayList<MapTile> tiles = new ArrayList<>();
         if (!random) {
             for (int posX = 0; posX < quantX; posX++) {
@@ -69,5 +71,9 @@ public class MapTileArea extends MapTile {
         }
         MapTile[] Tile = tiles.toArray(new MapTile[tiles.size()]);
         return Tile;
+    }
+
+    public MapTile[] getMapTiles() {
+        return getMapTiles(1.0);
     }
 }

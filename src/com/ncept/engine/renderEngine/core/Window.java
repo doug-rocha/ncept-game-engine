@@ -14,10 +14,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 import javax.swing.JFrame;
@@ -46,6 +45,8 @@ public class Window extends JComponent {
 
     int frames, ticks, time;
     private int lastFrames, lastTicks;
+
+    private boolean decorated;
 
     private Thread loop;
     private static boolean isRunning;
@@ -255,6 +256,8 @@ public class Window extends JComponent {
             FRAME.setLocationRelativeTo(null);
             FRAME.setVisible(true);
             Debug.LOG("Size Frame " + FRAME.getWidth() + " | " + FRAME.getHeight());
+
+
         }
         GraphicsCore.G = (Graphics2D) FRAME.getGraphics();
         GraphicsCore.G.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -276,5 +279,13 @@ public class Window extends JComponent {
 
     public static Dimension getScreenDimension() {
         return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    public void setIcon(Image img) {
+        FRAME.setIconImage(img);
+    }
+
+    public void setDecorated(boolean decorated) {
+        this.decorated = decorated;
     }
 }

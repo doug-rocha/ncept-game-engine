@@ -10,5 +10,6 @@ package com.ncept.engine.physicsEngine.objects.etc;
  * @author Douglas Rocha de Oliveira - NonaCept
  */
 public enum ObjectType {
-    
+    PLAYER,
+    BLOCK
 }

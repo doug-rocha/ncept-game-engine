@@ -48,6 +48,30 @@ public class Vector2D {
 
         return v2;
     }
+    
+    public Vector2D normalizeX() {
+        Vector2D v2 = new Vector2D();
+
+        double length = Math.sqrt(this.dX * this.dX + this.dY * this.dY);
+        if (length != 0) {
+            v2.dX = this.dX / length;
+            v2.dY = this.dY;
+        }
+
+        return v2;
+    }
+    
+    public Vector2D normalizeY() {
+        Vector2D v2 = new Vector2D();
+
+        double length = Math.sqrt(this.dX * this.dX + this.dY * this.dY);
+        if (length != 0) {
+            v2.dX = this.dX;
+            v2.dY = this.dY / length;
+        }
+
+        return v2;
+    }
 
     public double dotProduct(Vector2D v1) {
         return this.dX * v1.dX + this.dY * v1.dY;

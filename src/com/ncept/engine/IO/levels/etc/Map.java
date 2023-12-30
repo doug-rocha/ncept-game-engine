@@ -18,4 +18,6 @@ public class Map {
     public String bgm;
     public MapTile[] tiles;
     public MapTileArea[] tilesAreas;
+    public int playerX, playerY;
+    
 }
