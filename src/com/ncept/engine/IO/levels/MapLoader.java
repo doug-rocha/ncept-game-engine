@@ -16,13 +16,29 @@ public abstract class MapLoader {
 
     protected XMLMapParser mapParser;
     protected String filePath;
-    protected Map mapa;
+    protected Object mapa;
     protected boolean loaded;
+    protected Class mapClass;
 
     public MapLoader(String file_path) {
         loaded = false;
         this.filePath = file_path;
         mapParser = new XMLMapParser(Map.class);
+    }
+
+    public MapLoader(String file_path, Class mapClass) {
+        loaded = false;
+        this.filePath = file_path;
+        this.mapClass = mapClass;
+        mapParser = new XMLMapParser(this.mapClass);
+    }
+
+    public Class getMapClass() {
+        return mapClass;
+    }
+
+    public void setMapClass(Class mapClass) {
+        this.mapClass = mapClass;
     }
 
     public boolean isLoaded() {
@@ -32,17 +48,17 @@ public abstract class MapLoader {
     public String getMapName() {
         String retorno = "";
         if (loaded) {
-            retorno = mapa.name;
+            retorno = ((Map)mapa).name;
         } else {
             throw new IllegalStateException("Wait for the load to end");
         }
         return retorno;
     }
-    
-    public String getBGMName(){
-        String retorno="";
+
+    public String getBGMName() {
+        String retorno = "";
         if (loaded) {
-            retorno = mapa.bgm;
+            retorno = ((Map)mapa).bgm;
         } else {
             throw new IllegalStateException("Wait for the load to end");
         }
@@ -50,7 +66,8 @@ public abstract class MapLoader {
     }
 
     public void loadMap() {
-        mapa = (Map) mapParser.loadMap(new File(filePath));
+        mapa = mapClass.cast(mapParser.loadMap(new File(filePath)));
+        
         createObjects();
         loaded = true;
     }
