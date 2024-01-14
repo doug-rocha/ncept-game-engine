@@ -2,6 +2,8 @@
     +Suporte para execução em tela cheia;
     +Corrigidos diversos bugs referentes as janelas;
     +[bug]Janelas sem bordas;
+    +Mudanças no carregamento de mapa;
+    +Adicionado detecção de campo de visão;
 0.2.6-dev:
     +Novo método de pintura;
 0.2.5-dev:
