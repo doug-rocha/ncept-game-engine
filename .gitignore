@@ -102,5 +102,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
+lib/*/*
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,java,eclipse
