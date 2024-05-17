@@ -119,6 +119,9 @@ public class GameManager {
             ObjectManager.UPDATE(win, this);
             GUIManager.UPDATE(win);
             win.ticks++;
+            if (currentLevel.isFinished()){
+                enterLevel(currentLevel.getNxtLevelId(), true);
+            }
         }
     }
 

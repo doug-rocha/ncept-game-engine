@@ -25,7 +25,7 @@ public abstract class GameLevel {
     
     protected boolean finished;
     
-    protected int nxtLevel;
+    protected int nxtLevelId;
 
 
     protected ArrayList<GUI> GUI = new ArrayList<>();
@@ -56,8 +56,8 @@ public abstract class GameLevel {
         return finished;
     }
 
-    public int getNxtLevel() {
-        return nxtLevel;
+    public int getNxtLevelId() {
+        return nxtLevelId;
     }
     
     
