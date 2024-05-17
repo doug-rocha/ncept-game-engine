@@ -120,7 +120,7 @@ public class GameManager {
             GUIManager.UPDATE(win);
             win.ticks++;
             if (currentLevel.isFinished()){
-                enterLevel(currentLevel.getNxtLevelId(), true);
+                enterLevel(currentLevel.getNxtLevel(), true);
             }
         }
     }

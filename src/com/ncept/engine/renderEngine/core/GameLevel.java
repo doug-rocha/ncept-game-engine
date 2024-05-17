@@ -22,11 +22,12 @@ public abstract class GameLevel {
     protected double playerX, playerY;
 
     protected boolean running, updated, rendered;
-    
-    protected boolean finished;
-    
-    protected int nxtLevelId;
 
+    protected boolean finished;
+
+    protected Integer nxtLevelId;
+
+    protected GameLevel nxtLevel;
 
     protected ArrayList<GUI> GUI = new ArrayList<>();
     protected ArrayList<GameObject> GO = new ArrayList<>();
@@ -51,15 +52,17 @@ public abstract class GameLevel {
         GUIManager.FLUSH();
         ObjectManager.FLUSH_OBJECTS();
     }
-    
+
     public boolean isFinished() {
         return finished;
     }
 
-    public int getNxtLevelId() {
+    public Integer getNxtLevelId() {
         return nxtLevelId;
     }
-    
-    
+
+    public GameLevel getNxtLevel() {
+        return nxtLevel;
+    }
 
 }
