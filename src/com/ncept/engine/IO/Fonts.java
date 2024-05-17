@@ -16,8 +16,9 @@ public class Fonts {
     public static Font UBUNTU;
     public static Font LIBEL;
     public static Font RUFA;
-    public static Font DIALOG;
     public static Font SQUARED;
+    
+    public static Font DIALOG;
 
     public static void loadFonts() {
         try {
@@ -53,7 +54,7 @@ public class Fonts {
                 SQUARED = Font.createFont(Font.TRUETYPE_FONT, tmpFont);
 
             } else {
-                TIMES = UBUNTU = LIBEL = RUFA = ARIAL = DIALOG;
+                ARIAL = TIMES = TIMESBD = UBUNTU = LIBEL = RUFA = SQUARED = DIALOG;
             }
         } catch (FontFormatException | IOException ex) {
         }
