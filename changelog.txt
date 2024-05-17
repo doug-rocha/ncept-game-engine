@@ -1,3 +1,8 @@
+0.2.8-dev:
+    +Novas propriedades no GameLevel {isFinished() e getNxtLevel()};
+    +Adicionada classe Fonts {loadFonts() - carrega as fontes padrão};
+    +Renomeado getNxtLevel() para getNxtLevelId() no Game Level;
+    +GameManager executa troca de niveis utilizando as nova propriedades do GameLevel;
 0.2.7-dev:
     +Suporte para execução em tela cheia;
     +Corrigidos diversos bugs referentes as janelas;
