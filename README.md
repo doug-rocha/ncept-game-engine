@@ -4,7 +4,7 @@ A simple game engine in Java
 
 ### Dependencies
 
-Tritonus Share
+[Tritonus Share](https://github.com/umjammer/tritonus/)
 
 [MP3Spi](https://github.com/umjammer/mp3spi/releases/tag/1.9.5)
 
