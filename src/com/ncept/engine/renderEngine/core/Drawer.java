@@ -31,7 +31,7 @@ public class Drawer {
 
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
-        GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(Properties.ORIGINAL_WIDTH), GraphicsCore.calcSize(Properties.ORIGINAL_HEIGHT) - 31, BufferedImage.TYPE_INT_ARGB);
+        GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(Properties.ORIGINAL_WIDTH), GraphicsCore.calcSize(Properties.ORIGINAL_HEIGHT) - (win.isDecorated() ? 31 : 0), BufferedImage.TYPE_INT_ARGB);
         Properties.BUFFER_WIDTH = GraphicsCore.BUFFER.getWidth();
         Properties.BUFFER_HEIGHT = GraphicsCore.BUFFER.getHeight();
         this.g = (Graphics2D) GraphicsCore.BUFFER.createGraphics();
@@ -167,23 +167,23 @@ public class Drawer {
     public RenderingHints getRenderingHints() {
         return g.getRenderingHints();
     }
-    
-    public void drawShape(Shape shape){
+
+    public void drawShape(Shape shape) {
         g.draw(shape);
     }
-    
-    public void drawShape(Shape shape, Color color){
+
+    public void drawShape(Shape shape, Color color) {
         Color old_color = g.getColor();
         g.setColor(color);
         drawShape(shape);
         g.setColor(old_color);
     }
-    
-    public void fillShape(Shape shape){
+
+    public void fillShape(Shape shape) {
         g.fill(shape);
     }
-    
-    public void fillShape(Shape shape, Paint paint){
+
+    public void fillShape(Shape shape, Paint paint) {
         Paint old_paint = g.getPaint();
         g.setPaint(paint);
         fillShape(shape);

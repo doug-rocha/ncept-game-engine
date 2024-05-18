@@ -20,7 +20,7 @@ import java.awt.Rectangle;
  */
 public abstract class GameObject {
 
-    private double x, y, sx, sy;
+    protected double x, y, sx, sy;
     protected boolean doDraw = true, didDraw, hasImage, isDestroyed, drawHitbox, hasColision;
     protected Image image;
     protected Color color;

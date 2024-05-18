@@ -28,7 +28,7 @@ public class GraphicsCore {
     }
 
     public static int calcSize(double value) {
-        return (int) (value * MOD_RESOL);
+        return (int) calcSizeDouble(value);
     }
 
     public static double calcSizeDouble(double value) {

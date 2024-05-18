@@ -9,7 +9,6 @@ import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.ncept.engine.renderEngine.core.Window;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
-import com.ncept.engine.utils.Debug;
 import java.awt.Color;
 import java.awt.Font;
 

@@ -22,4 +22,6 @@ public class Properties {
     public static double UPDATE_SPEED = 90, FRAMES_PS = 90;
 
     public static boolean DEBUG_MODE = false;
+    
+    public static double DELTA_TIME;
 }

@@ -20,7 +20,6 @@ import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import javax.swing.JComponent;
 
 import javax.swing.JFrame;
@@ -52,11 +51,11 @@ public class Window extends JComponent {
 
     private boolean decorated;
 
-    private Thread loop;
+    private transient Thread loop;
     private static boolean isRunning;
 
     public Window(String title, int buffer_size, GameManager gm) {
-        this.GM = gm;
+        Window.GM = gm;
 
         TITLE = title;
         WIDTH = Properties.WIDTH;
@@ -74,14 +73,13 @@ public class Window extends JComponent {
         FRAME.setResizable(true);
         FRAME.setLocationRelativeTo(null);
         FRAME.addComponentListener(new ComponentAdapter() {
+            @Override
             public void componentResized(ComponentEvent e) {
                 onResize(e);
             }
         });
-        FRAME.addWindowStateListener(new WindowStateListener() {
-            public void windowStateChanged(WindowEvent e) {
-                frameWindowStateChanged(e);
-            }
+        FRAME.addWindowStateListener((WindowEvent e) -> {
+            frameWindowStateChanged(e);
         });
     }
 
@@ -94,7 +92,9 @@ public class Window extends JComponent {
 
     public Window(String title, int width, int height, int buffer_size, boolean undecorated, GameManager gm) {
         this(title, width, height, buffer_size, gm);
+        FRAME.dispose();
         FRAME.setUndecorated(undecorated);
+        FRAME.setVisible(true);
         decorated = !undecorated;
     }
 
@@ -118,11 +118,18 @@ public class Window extends JComponent {
         if (!isRunning) {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
+        int yPos;
+        if (decorated) {
+            yPos = (FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2);
+        } else {
+            yPos = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
+        }
         GraphicsCore.G.drawImage(GraphicsCore.BUFFER,
                 FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2,
-                ((FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2)),
+                yPos,
                 GraphicsCore.BUFFER.getWidth(),
-                GraphicsCore.BUFFER.getHeight(), null);
+                GraphicsCore.BUFFER.getHeight(),
+                null);
     }
 
     public void clear(Color clear_color) {
@@ -153,9 +160,6 @@ public class Window extends JComponent {
                 FRAME.setAlwaysOnTop(true);
             }
         }
-        //WIDTH = FRAME.getWidth();
-        //HEIGHT = FRAME.getHeight();
-        FRAME.getSize();
         updateSizes(false);
     }
 
@@ -169,7 +173,7 @@ public class Window extends JComponent {
                 double last_time = System.nanoTime();
                 double delta = 0, delta_fps = 0;
 
-                double ns = 1e9 / Properties.UPDATE_SPEED, ns_fps = 1e9 / Properties.FRAMES_PS;
+                double ns, ns_fps;
 
                 double start = System.currentTimeMillis();
                 int next = 1;
@@ -181,6 +185,7 @@ public class Window extends JComponent {
                     double now = (System.currentTimeMillis() - start) / 1000;
 
                     delta += (now_time - last_time) / ns;
+                    Properties.DELTA_TIME = (now_time - last_time) / 1000.0;
                     delta_fps += (now_time - last_time) / ns_fps;
                     last_time = now_time;
                     while (delta >= 1) {
@@ -258,6 +263,14 @@ public class Window extends JComponent {
         updateSizes(true);
     }
 
+    public void setSizes(int width, int height, boolean newProportion) {
+        if (newProportion) {
+            Properties.ORIGINAL_WIDTH = width;
+            Properties.ORIGINAL_HEIGHT = height;
+        }
+        setSizes(width, height);
+    }
+
     public JFrame getFrame() {
         return FRAME;
     }
@@ -272,6 +285,10 @@ public class Window extends JComponent {
 
     public void setDecorated(boolean decorated) {
         this.decorated = decorated;
+    }
+
+    public boolean isDecorated() {
+        return decorated;
     }
 
     public Dimension getSize() {
