@@ -18,7 +18,7 @@ public class GraphicsCore {
 
     public static Graphics2D G;
     public static BufferedImage BUFFER;
-    public static double MODSIZE_X, MODSIZE_Y, MOD_RESOL;
+    public static double MODSIZE_X, MODSIZE_Y, MOD_RESOL = 1.0;
 
     public static void calcMods(int frameWidth, int frameHeight) {
         MODSIZE_X = Double.valueOf(frameWidth) / Properties.ORIGINAL_WIDTH;

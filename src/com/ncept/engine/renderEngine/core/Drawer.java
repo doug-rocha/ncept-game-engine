@@ -29,7 +29,9 @@ public class Drawer {
 
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
-        GraphicsCore.BUFFER = new BufferedImage(Properties.WIDTH, Properties.HEIGHT - 31, BufferedImage.TYPE_INT_ARGB);
+        GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(Properties.ORIGINAL_WIDTH), GraphicsCore.calcSize(Properties.ORIGINAL_HEIGHT) - 31, BufferedImage.TYPE_INT_ARGB);
+        Properties.BUFFER_WIDTH = GraphicsCore.BUFFER.getWidth();
+        Properties.BUFFER_HEIGHT = GraphicsCore.BUFFER.getHeight();
         this.g = (Graphics2D) GraphicsCore.BUFFER.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(Color.WHITE);

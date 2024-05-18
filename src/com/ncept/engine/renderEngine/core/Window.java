@@ -19,6 +19,8 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import javax.swing.JComponent;
 
 import javax.swing.JFrame;
@@ -76,6 +78,11 @@ public class Window extends JComponent {
                 onResize(e);
             }
         });
+        FRAME.addWindowStateListener(new WindowStateListener() {
+            public void windowStateChanged(WindowEvent e) {
+                frameWindowStateChanged(e);
+            }
+        });
     }
 
     public Window(String title, int width, int height, int buffer_size, GameManager gm) {
@@ -111,7 +118,11 @@ public class Window extends JComponent {
         if (!isRunning) {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
-        GraphicsCore.G.drawImage(GraphicsCore.BUFFER, 0, 31, FRAME.getWidth(), FRAME.getHeight() - 31, null);
+        GraphicsCore.G.drawImage(GraphicsCore.BUFFER,
+                FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2,
+                ((FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2)),
+                GraphicsCore.BUFFER.getWidth(),
+                GraphicsCore.BUFFER.getHeight(), null);
     }
 
     public void clear(Color clear_color) {
@@ -268,6 +279,14 @@ public class Window extends JComponent {
     }
 
     private void onResize(ComponentEvent e) {
+        procSizes();
+    }
+
+    private void frameWindowStateChanged(WindowEvent e) {
+        procSizes();
+    }
+
+    private void procSizes() {
         if (FRAME.isVisible()) {
             Properties.WIDTH = WIDTH = FRAME.getWidth();
             Properties.HEIGHT = HEIGHT = FRAME.getHeight();
