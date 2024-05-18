@@ -11,7 +11,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
@@ -165,11 +167,33 @@ public class Drawer {
     public RenderingHints getRenderingHints() {
         return g.getRenderingHints();
     }
+    
+    public void drawShape(Shape shape){
+        g.draw(shape);
+    }
+    
+    public void drawShape(Shape shape, Color color){
+        Color old_color = g.getColor();
+        g.setColor(color);
+        drawShape(shape);
+        g.setColor(old_color);
+    }
+    
+    public void fillShape(Shape shape){
+        g.fill(shape);
+    }
+    
+    public void fillShape(Shape shape, Paint paint){
+        Paint old_paint = g.getPaint();
+        g.setPaint(paint);
+        fillShape(shape);
+        g.setPaint(old_paint);
+    }
 
     public void clear(Color clear_color) {
         Color old = g.getColor();
         g.setColor(clear_color);
-        g.fillRect(-cameraX, -cameraY, Properties.WIDTH, Properties.HEIGHT);
+        g.fillRect(-cameraX, -cameraY, Properties.BUFFER_WIDTH, Properties.BUFFER_HEIGHT);
         g.setColor(old);
     }
 }

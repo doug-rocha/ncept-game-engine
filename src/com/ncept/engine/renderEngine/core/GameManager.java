@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class GameManager {
 
-    private ArrayList<GameLevel> levels = new ArrayList<GameLevel>();
+    private ArrayList<GameLevel> levels = new ArrayList<>();
     private ArrayList<GameLevel> sceneLevels = new ArrayList<>();
     private GameLevel currentLevel;
     private Window win;
@@ -75,7 +75,7 @@ public class GameManager {
 
     public void enterLevel(GameLevel level, boolean do_init) {
         currentLevel = level;
-        if (do_init){
+        if (do_init) {
             currentLevel.init(win, this);
         }
     }
@@ -84,8 +84,8 @@ public class GameManager {
         win = new Window(title, width, height, buffer_size, this);
         return win;
     }
-    
-    public Window createWindow(String title, int width, int height, int buffer_size, boolean undecorated){
+
+    public Window createWindow(String title, int width, int height, int buffer_size, boolean undecorated) {
         win = new Window(title, width, height, buffer_size, undecorated, this);
         return win;
     }
@@ -119,7 +119,7 @@ public class GameManager {
             ObjectManager.UPDATE(win, this);
             GUIManager.UPDATE(win);
             win.ticks++;
-            if (currentLevel.isFinished()){
+            if (currentLevel.isFinished()) {
                 enterLevel(currentLevel.getNxtLevel(), true);
             }
         }
