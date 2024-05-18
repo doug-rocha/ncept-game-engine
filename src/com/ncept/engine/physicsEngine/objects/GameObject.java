@@ -7,6 +7,7 @@ package com.ncept.engine.physicsEngine.objects;
 
 import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.GameManager;
+import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.ncept.engine.renderEngine.core.Window;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
 import java.awt.Color;
@@ -19,11 +20,15 @@ import java.awt.Rectangle;
  */
 public abstract class GameObject {
 
-    protected double x, y, sx, sy;
+    private double x, y, sx, sy;
     protected boolean doDraw = true, didDraw, hasImage, isDestroyed, drawHitbox, hasColision;
     protected Image image;
     protected Color color;
     protected Rectangle hitbox;
+
+    private double mx, my, msx, msy;
+    private Rectangle mHitbox;
+    private double lastMod;
 
     protected boolean colliding;
     protected Point collidingPoint = new Point();
@@ -38,15 +43,15 @@ public abstract class GameObject {
     public void render(Window win, Drawer d) {
         if (doDraw) {
             if (hasImage) {
-                d.drawImage(image, (int) x, (int) y, (int) sx, (int) sy);
+                d.drawImage(image, (int) mx, (int) my, (int) msx, (int) msy);
             } else {
                 if (color == null) {
                     color = Color.WHITE;
                 }
-                d.fillRect((int) x, (int) y, (int) sx, (int) sy, color);
+                d.fillRect((int) mx, (int) my, (int) msx, (int) msy, color);
             }
             if (drawHitbox && hasColision) {
-                d.fillRect((int) (hitbox.x + this.x), (int) (hitbox.y + this.y), hitbox.width, hitbox.height, new Color(25, 50, 150, 100));
+                d.fillRect((int) (mHitbox.x + this.mx), (int) (mHitbox.y + this.my), mHitbox.width, mHitbox.height, new Color(25, 50, 150, 100));
             }
             didDraw = true;
         }
@@ -101,8 +106,8 @@ public abstract class GameObject {
     }
 
     public void setPos(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.mx = x;
+        this.my = y;
     }
 
     public void setColliding(boolean colliding) {
@@ -116,5 +121,20 @@ public abstract class GameObject {
 
     public boolean isColliding() {
         return colliding;
+    }
+
+    public void recalculateSize() {
+        if (GraphicsCore.MOD_RESOL != lastMod) {
+            mHitbox = new Rectangle(calcSize(hitbox.x), calcSize(hitbox.y), calcSize(hitbox.width), calcSize(hitbox.height));
+            msx = calcSize(sx);
+            msy = calcSize(sy);
+        }
+        mx = calcSize(x);
+        my = calcSize(y);
+        lastMod = GraphicsCore.MOD_RESOL;
+    }
+
+    protected int calcSize(double value) {
+        return GraphicsCore.calcSize(value);
     }
 }

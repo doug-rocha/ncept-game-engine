@@ -54,6 +54,7 @@ public class ObjectManager {
                 Objects.remove(go);
             } else {
                 go.update(win, gm);
+                go.recalculateSize();
             }
         }
     }
@@ -68,8 +69,8 @@ public class ObjectManager {
     public static ArrayList<GameObject> GET_OBJECTS() {
         return Objects;
     }
-    
-    public static int GET_OBJECT_INDEX(GameObject go){
+
+    public static int GET_OBJECT_INDEX(GameObject go) {
         int retorno = -1;
         for (int i = 0; i < Objects.size(); i++) {
             if (Objects.get(i) == go) {
@@ -78,7 +79,7 @@ public class ObjectManager {
         }
         return retorno;
     }
-    
+
     public static GameObject GET(int index) {
         return Objects.get(index);
     }

@@ -17,6 +17,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.JComponent;
 
 import javax.swing.JFrame;
@@ -51,27 +53,6 @@ public class Window extends JComponent {
     private Thread loop;
     private static boolean isRunning;
 
-    public Window(String title, int width, int height, int buffer_size, GameManager gm) {
-        this.GM = gm;
-
-        Window.TITLE = title;
-        Properties.WIDTH = WIDTH = width;
-        Properties.HEIGHT = HEIGHT = height;
-        BUFFER_SIZE = buffer_size;
-
-        setFocusable(true);
-
-        FRAME = new JFrame(TITLE);
-        FRAME.setLayout(null);
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocation(50, 50);
-        //FRAME.add(this);
-        FRAME.pack();
-        updateSizes(true);
-        FRAME.setResizable(false);
-        FRAME.setLocationRelativeTo(null);
-    }
-
     public Window(String title, int buffer_size, GameManager gm) {
         this.GM = gm;
 
@@ -88,31 +69,26 @@ public class Window extends JComponent {
         //this.setLocation(0, 0);
         //FRAME.add(this);
         FRAME.pack();
-        FRAME.setResizable(false);
+        FRAME.setResizable(true);
         FRAME.setLocationRelativeTo(null);
+        FRAME.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                onResize(e);
+            }
+        });
+    }
+
+    public Window(String title, int width, int height, int buffer_size, GameManager gm) {
+        this(title, buffer_size, gm);
+        Properties.WIDTH = Properties.ORIGINAL_WIDTH = WIDTH = width;
+        Properties.HEIGHT = Properties.ORIGINAL_HEIGHT = HEIGHT = height;
+        updateSizes(true);
     }
 
     public Window(String title, int width, int height, int buffer_size, boolean undecorated, GameManager gm) {
-
-        this.GM = gm;
-
-        Window.TITLE = title;
-        Properties.WIDTH = WIDTH = width;
-        Properties.HEIGHT = HEIGHT = height;
-        BUFFER_SIZE = buffer_size;
-
-        setFocusable(true);
-
-        FRAME = new JFrame(TITLE);
+        this(title, width, height, buffer_size, gm);
         FRAME.setUndecorated(undecorated);
-        FRAME.setLayout(null);
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocation(50, 50);
-        //FRAME.add(this);
-        FRAME.pack();
-        updateSizes(true);
-        FRAME.setResizable(false);
-        FRAME.setLocationRelativeTo(null);
+        decorated = !undecorated;
     }
 
     public void show() {
@@ -135,7 +111,7 @@ public class Window extends JComponent {
         if (!isRunning) {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
-        GraphicsCore.G.drawImage(GraphicsCore.BUFFER, 0, 0, FRAME.getWidth(), FRAME.getHeight(), null);
+        GraphicsCore.G.drawImage(GraphicsCore.BUFFER, 0, 31, FRAME.getWidth(), FRAME.getHeight() - 31, null);
     }
 
     public void clear(Color clear_color) {
@@ -146,7 +122,9 @@ public class Window extends JComponent {
     }
 
     public void close() {
-        Debug.LOG("WINDOW >> CLOSING APPLICATION");
+        if (Properties.DEBUG_MODE) {
+            Debug.LOG("WINDOW >> CLOSING APPLICATION");
+        }
         FRAME.dispose();
         System.exit(0);
     }
@@ -257,14 +235,10 @@ public class Window extends JComponent {
             FRAME.setVisible(true);
             Debug.LOG("Size Frame " + FRAME.getWidth() + " | " + FRAME.getHeight());
 
-
         }
         GraphicsCore.G = (Graphics2D) FRAME.getGraphics();
         GraphicsCore.G.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        DRAWER = new Drawer(this);
-        GraphicsCore.MODSIZE_X = Properties.WIDTH / Double.valueOf(FRAME.getWidth());
-        GraphicsCore.MODSIZE_Y = Properties.HEIGHT / Double.valueOf(FRAME.getHeight());
-        Debug.LOG(GraphicsCore.MODSIZE_X + " <- modsize -> " + GraphicsCore.MODSIZE_Y);
+        updateDrawer();
     }
 
     public void setSizes(int width, int height) {
@@ -287,5 +261,23 @@ public class Window extends JComponent {
 
     public void setDecorated(boolean decorated) {
         this.decorated = decorated;
+    }
+
+    public Dimension getSize() {
+        return new Dimension(WIDTH, HEIGHT);
+    }
+
+    private void onResize(ComponentEvent e) {
+        if (FRAME.isVisible()) {
+            Properties.WIDTH = WIDTH = FRAME.getWidth();
+            Properties.HEIGHT = HEIGHT = FRAME.getHeight();
+            updateDrawer();
+        }
+    }
+
+    private void updateDrawer() {
+        DRAWER = new Drawer(this);
+        GraphicsCore.calcMods(FRAME.getWidth(), FRAME.getHeight());
+        Debug.LOG(GraphicsCore.MODSIZE_X + " <- modsize -> " + GraphicsCore.MODSIZE_Y);
     }
 }

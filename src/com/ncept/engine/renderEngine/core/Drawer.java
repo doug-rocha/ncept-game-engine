@@ -7,7 +7,6 @@ package com.ncept.engine.renderEngine.core;
 
 import com.ncept.engine.Properties;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
-import com.ncept.engine.utils.Debug;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -30,7 +29,7 @@ public class Drawer {
 
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
-        GraphicsCore.BUFFER = new BufferedImage(Properties.WIDTH, Properties.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        GraphicsCore.BUFFER = new BufferedImage(Properties.WIDTH, Properties.HEIGHT - 31, BufferedImage.TYPE_INT_ARGB);
         this.g = (Graphics2D) GraphicsCore.BUFFER.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(Color.WHITE);

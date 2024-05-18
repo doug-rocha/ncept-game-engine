@@ -64,5 +64,9 @@ public abstract class GameLevel {
     public GameLevel getNxtLevel() {
         return nxtLevel;
     }
+    
+    protected int calcSize(double value){
+        return GraphicsCore.calcSize(value);
+    }
 
 }

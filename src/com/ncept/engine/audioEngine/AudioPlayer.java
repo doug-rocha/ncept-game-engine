@@ -80,7 +80,9 @@ public class AudioPlayer {
             decThread = new Thread(dec);
             decThread.start();
         } else {
-            Debug.LOG("Nenhum arquivo selecionado, não vai tocar nada");
+            if (Properties.DEBUG_MODE) {
+                Debug.LOG("Nenhum arquivo selecionado, não vai tocar nada");
+            }
         }
     }
 
@@ -102,7 +104,7 @@ public class AudioPlayer {
                 decThread.wait();
                 this.paused = true;
             } catch (InterruptedException ex) {
-                Debug.LOG(ex.getMessage());
+                Debug.LOG_ERROR(ex.getMessage());
             }
         } else {
             decThread.notify();

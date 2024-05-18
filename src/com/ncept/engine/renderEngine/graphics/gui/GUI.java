@@ -6,8 +6,10 @@
 package com.ncept.engine.renderEngine.graphics.gui;
 
 import com.ncept.engine.renderEngine.core.Drawer;
+import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.ncept.engine.renderEngine.core.Window;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
+import com.ncept.engine.utils.Debug;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -16,60 +18,92 @@ import java.awt.Font;
  * @author Douglas Rocha de Oliveira - NonaCept
  */
 public abstract class GUI {
-
-    protected float x, y, sx, sy;
+    
+    protected double x, y, sx, sy;
     protected Image img;
     protected boolean hasImage, hasBackground, doDraw, showWireFrame;
     protected boolean hasLabel;
     protected Color backColor, frameColor, labelColor = Color.WHITE;
-
+    
     protected String labelText = "";
     protected Font labelFont;
     protected int labelX, labelY;
-
-    public float getSX() {
+    
+    private double lastMod;
+    private double mx, my, msx, msy;
+    private int mLabelX, mLabelY;
+    private Font mLabelFont;
+    
+    public double getSX() {
         return sx;
     }
-
-    public float getSY() {
+    
+    public double getSY() {
         return sy;
     }
-
-    public float getX() {
+    
+    public double getX() {
         return x;
     }
-
-    public float getY() {
+    
+    public double getY() {
         return y;
     }
-
+    
+    public void setPos(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    public void setSize(double sx, double sy) {
+        this.sx = sx;
+        this.sy = sy;
+    }
+    
     public abstract void update(Window win);
-
+    
     public void render(Window win, Drawer d) {
-
+        
         if (doDraw) {
             if (hasBackground) {
-                d.fillRect((int) x, (int) y, (int) sx, (int) sy, backColor);
+                d.fillRect((int) mx, (int) my, (int) msx, (int) msy, backColor);
             } else if (hasImage && img != null) {
-                d.drawImage(img, (int) x, (int) y);
+                d.drawImage(img, (int) mx, (int) my);
             }
             if (showWireFrame) {
-                d.drawRect((int) x, (int) y, (int) sx, (int) sy, frameColor);
+                d.drawRect((int) mx, (int) my, (int) msx, (int) msy, frameColor);
             }
             if (hasLabel && !labelText.equals("")) {
-                d.drawString(labelText, labelColor, labelFont, labelX, labelY);
+                d.drawString(labelText, labelColor, mLabelFont, mLabelX, mLabelY);
             }
         }
-
+        
     }
-
+    
     public void setVisible(boolean visible) {
         doDraw = visible;
     }
-
+    
     public boolean isVisible() {
         return this.doDraw;
     }
-
+    
+    public void recalculateSize() {
+        if (GraphicsCore.MOD_RESOL != lastMod) {
+            msx = calcSize(sx);
+            msy = calcSize(sy);
+            mLabelFont = labelFont.deriveFont(labelFont.getStyle(), calcSize(labelFont.getSize()));
+        }
+        mx = calcSize(x);
+        my = calcSize(y);
+        mLabelX = calcSize(labelX);
+        mLabelY = calcSize(labelY);
+        lastMod = GraphicsCore.MOD_RESOL;
+    }
+    
+    protected int calcSize(double value) {
+        return GraphicsCore.calcSize(value);
+    }
+    
     public abstract void setText(String string);
 }

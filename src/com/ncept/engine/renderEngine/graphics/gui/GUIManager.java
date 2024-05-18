@@ -33,6 +33,7 @@ public class GUIManager {
             GUI gui = Objects.get(i);
             if (gui.doDraw) {
                 gui.update(win);
+                gui.recalculateSize();
             }
         }
     }
