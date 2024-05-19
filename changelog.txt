@@ -1,3 +1,22 @@
+0.2.9-dev:
+	+[Drawer] limpeza de código inutilizado ou redundante;
+	+[Drawer] calcula propriedades do Buffer;
+	+[GameLevel] adicionado metodo calcSize - retorna GraphicsCore.calcSize() - apenas para prevenir importações em todas sub-classes;
+	+[GraphicsCore] adicionado metodo calcMods(frameW, frameH) - recalcula modificadores de tamanho;
+	+[GraphicsCore] adicionado metodo calcSize(value) - retorna o valor multiplicado pelo modificador;
+	+[Properties] adicionadas propriedades ORIGINAL_WIDTH e ORIGINAL_HEIGHT para ajudar com os calculos de modificador;
+	+[Properties] adicionadas propriedades BUFFER_WIDTH e BUFFER_HEIGHT;
+	+[Properties] adicionada propriedade DELTA_TIME;
+	+[ShapeFactory] classe criada, irá receber classes estaticas para formas complexas;
+	+[ShapeFactory] adicionada classe estatica Star - cria estrelas :) ;
+	+[Window][fix] criacão da janela e desenho do buffer em janelas não decoradas;
+	+[Window] adicionado evento onResize(), faz o trabalho necessario para que o conteúdo respeite o tamanho novo da janela;
+	+[Window] Buffer se mantem na proporção, por padrão segue a proporção em que foi instanciado inicialmente;
+	+[Window] adicionado evento frameWindowStateChanged() para tomar as ações necessárias quando maximizado;
+	+[Window] adicionado setSizes(width, height, assumeProportion) - para casos em que queira definir o tamanho da tela como nova proporção do Buffer;
+	+[Window] limpeza de código inutilizado ou redundante;
+	+GameObject, ObjectManager, GUI, e GUIManager - conseguem ajustar os proprios tamanhos se for preciso;
+	+Removidas algumas mensagens de debug fora do modo de depuração;
 0.2.8-dev:
     +Novas propriedades no GameLevel {isFinished() e getNxtLevel()};
     +Adicionada classe Fonts {loadFonts() - carrega as fontes padrão};

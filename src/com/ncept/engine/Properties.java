@@ -11,7 +11,7 @@ package com.ncept.engine;
  */
 public class Properties {
 
-    public static final String ENGINE_VERSION = "0.2.8-dev";
+    public static final String ENGINE_VERSION = "0.2.9-dev";
 
     public static int WIDTH = 1280, HEIGHT = 720;
     public static int BUFFER_WIDTH = 1280, BUFFER_HEIGHT = 689;
