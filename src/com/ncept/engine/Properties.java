@@ -24,4 +24,6 @@ public class Properties {
     public static boolean DEBUG_MODE = false;
     
     public static double DELTA_TIME;
+    
+    public static boolean MOD_CHANGED;
 }

@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.renderEngine.core;
 
+import com.ncept.engine.Properties;
 import com.ncept.engine.physicsEngine.objects.ObjectManager;
 import com.ncept.engine.renderEngine.graphics.gui.GUIManager;
 import java.awt.Color;
@@ -118,6 +119,8 @@ public class GameManager {
             currentLevel.update(win, this);
             ObjectManager.UPDATE(win, this);
             GUIManager.UPDATE(win);
+            Properties.MOD_CHANGED = GraphicsCore.modHasChanged();
+            GraphicsCore.LAST_MOD_RESOL = GraphicsCore.MOD_RESOL;
             win.ticks++;
             if (currentLevel.isFinished()) {
                 enterLevel(currentLevel.getNxtLevel(), true);
