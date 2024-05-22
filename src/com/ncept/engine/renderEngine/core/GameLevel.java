@@ -28,6 +28,8 @@ public abstract class GameLevel {
     protected Integer nxtLevelId;
 
     protected GameLevel nxtLevel;
+    
+    protected double lastMod;
 
     protected ArrayList<GUI> GUI = new ArrayList<>();
     protected ArrayList<GameObject> GO = new ArrayList<>();

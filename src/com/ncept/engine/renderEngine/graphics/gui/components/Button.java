@@ -40,7 +40,6 @@ public class Button extends GUI {
     private ButtonEvent event;
 
     public Button(String title, int x, int y, int sx, int sy, boolean bordered) {
-
         this.x = x;
         this.y = y;
         this.sx = sx;
@@ -152,15 +151,15 @@ public class Button extends GUI {
                 super.render(win, d);
             } else {
                 if (hasBackground) {
-                    d.fillRoundRect((int) x, (int) y, (int) sx, (int) sy, borderRadiusH, borderRadiusV, backColor);
+                    d.fillRoundRect((int) mx, (int) my, (int) msx, (int) msy, borderRadiusH, borderRadiusV, backColor);
                 } else if (hasImage && img != null) {
-                    d.drawImage(img, (int) x, (int) y);
+                    d.drawImage(img, (int) mx, (int) my);
                 }
                 if (showWireFrame) {
-                    d.drawRoundRect((int) x, (int) y, (int) sx, (int) sy, borderRadiusH, borderRadiusV, frameColor);
+                    d.drawRoundRect((int) mx, (int) my, (int) msx, (int) msy, borderRadiusH, borderRadiusV, frameColor);
                 }
                 if (hasLabel && !labelText.equals("")) {
-                    d.drawString(labelText, labelColor, labelFont, labelX, labelY);
+                    d.drawString(labelText, labelColor, mLabelFont, mLabelX, mLabelY);
                 }
             }
         }
@@ -174,5 +173,6 @@ public class Button extends GUI {
 
     @Override
     public void setText(String string) {
+        this.labelText = string;
     }
 }

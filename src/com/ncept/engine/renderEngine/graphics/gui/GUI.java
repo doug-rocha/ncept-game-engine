@@ -17,52 +17,67 @@ import java.awt.Font;
  * @author Douglas Rocha de Oliveira - NonaCept
  */
 public abstract class GUI {
-    
+
     protected double x, y, sx, sy;
     protected Image img;
     protected boolean hasImage, hasBackground, doDraw, showWireFrame;
     protected boolean hasLabel;
     protected Color backColor, frameColor, labelColor = Color.WHITE;
-    
+
     protected String labelText = "";
     protected Font labelFont;
     protected int labelX, labelY;
-    
-    private double lastMod;
-    private double mx, my, msx, msy;
-    private int mLabelX, mLabelY;
-    private Font mLabelFont;
-    
+
+    protected double mx, my, msx, msy;
+    protected int mLabelX, mLabelY;
+    protected Font mLabelFont;
+
     public double getSX() {
         return sx;
     }
-    
+
     public double getSY() {
         return sy;
     }
-    
+
     public double getX() {
         return x;
     }
-    
+
     public double getY() {
         return y;
     }
-    
+
+    public double getMx() {
+        return mx;
+    }
+
+    public double getMy() {
+        return my;
+    }
+
+    public double getMsx() {
+        return msx;
+    }
+
+    public double getMsy() {
+        return msy;
+    }
+
     public void setPos(double x, double y) {
         this.x = x;
         this.y = y;
     }
-    
+
     public void setSize(double sx, double sy) {
         this.sx = sx;
         this.sy = sy;
     }
-    
+
     public abstract void update(Window win);
-    
+
     public void render(Window win, Drawer d) {
-        
+
         if (doDraw) {
             if (hasBackground) {
                 d.fillRect((int) mx, (int) my, (int) msx, (int) msy, backColor);
@@ -76,33 +91,32 @@ public abstract class GUI {
                 d.drawString(labelText, labelColor, mLabelFont, mLabelX, mLabelY);
             }
         }
-        
+
     }
-    
+
     public void setVisible(boolean visible) {
         doDraw = visible;
     }
-    
+
     public boolean isVisible() {
         return this.doDraw;
     }
-    
-    public void recalculateSize() {
-        if (GraphicsCore.MOD_RESOL != lastMod) {
-            msx = calcSize(sx);
-            msy = calcSize(sy);
+
+    public final void recalculateSize() {
+        msx = calcSize(sx);
+        msy = calcSize(sy);
+        if (labelFont != null) {
             mLabelFont = labelFont.deriveFont(labelFont.getStyle(), calcSize(labelFont.getSize()));
         }
         mx = calcSize(x);
         my = calcSize(y);
         mLabelX = calcSize(labelX);
         mLabelY = calcSize(labelY);
-        lastMod = GraphicsCore.MOD_RESOL;
     }
-    
+
     protected int calcSize(double value) {
         return GraphicsCore.calcSize(value);
     }
-    
+
     public abstract void setText(String string);
 }

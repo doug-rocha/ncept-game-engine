@@ -7,7 +7,6 @@ package com.ncept.engine.physicsEngine.collision;
 
 import com.ncept.engine.inputEngine.Mouse;
 import com.ncept.engine.physicsEngine.objects.GameObject;
-import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.ncept.engine.renderEngine.core.Window;
 import com.ncept.engine.renderEngine.graphics.gui.GUI;
 import java.awt.Point;
@@ -41,11 +40,8 @@ public class Collision {
     public static boolean isMouseColliding(GUI gui) {
         Mouse m = Window.getMouse();
 
-        int mx = (int) (m.getX() * GraphicsCore.MODSIZE_X);
-        int my = (int) (m.getY() * GraphicsCore.MODSIZE_Y);
-
-        Rectangle r1 = new Rectangle(mx, my, 1, 1);
-        Rectangle r2 = new Rectangle((int) gui.getX(), (int) gui.getY(), (int) gui.getSX(), (int) gui.getSY());
+        Rectangle r1 = new Rectangle(m.getX(), m.getY(), 1, 1);
+        Rectangle r2 = new Rectangle((int) gui.getMx(), (int) gui.getMy(), (int) gui.getMsx(), (int) gui.getMsy());
 
         return r1.intersects(r2);
     }

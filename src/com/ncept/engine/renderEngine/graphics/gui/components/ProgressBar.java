@@ -67,21 +67,21 @@ public class ProgressBar extends GUI {
                 for (int i = 0; i <= 5; i++) {
                     glowingColor = new Color(glowingColor.getRed(), glowingColor.getBlue(), glowingColor.getBlue(), glowingTime / (i + 1));
                     if (rounded) {
-                        d.drawRoundRect((int) x - i, (int) y - i, (int) sx + (i * 2), (int) sy + (i * 2), (int) ru, (int) rd, glowingColor);
+                        d.drawRoundRect((int) mx - i, (int) my - i, (int) msx + (i * 2), (int) msy + (i * 2), (int) ru, (int) rd, glowingColor);
                     } else {
-                        d.drawRect((int) x - i, (int) y - i, (int) sx + (i * 2), (int) sy + (i * 2), glowingColor);
+                        d.drawRect((int) mx - i, (int) my - i, (int) msx + (i * 2), (int) msy + (i * 2), glowingColor);
                     }
                 }
             }
             if (rounded) {
-                d.fillRoundRect((int) x, (int) y, (int) sx, (int) sy, ru, rd, frameColor);
-                d.fillRoundRect((int) x, (int) y, (int) (sx * widthMod), (int) sy, ru, rd, backColor);
+                d.fillRoundRect((int) mx, (int) my, (int) msx, (int) msy, ru, rd, frameColor);
+                d.fillRoundRect((int) mx, (int) my, (int) (msx * widthMod), (int) sy, ru, rd, backColor);
             } else {
-                d.fillRect((int) x, (int) y, (int) sx, (int) sy, frameColor);
-                d.fillRect((int) x, (int) y, (int) (sx * widthMod), (int) sy, backColor);
+                d.fillRect((int) mx, (int) my, (int) msx, (int) msy, frameColor);
+                d.fillRect((int) mx, (int) my, (int) (msx * widthMod), (int) msy, backColor);
             }
             if (hasLabel && !labelText.equals("")) {
-                d.drawString(labelText, labelColor, labelFont, (int) (x + (sx / 2) - (d.getFontMetrics(labelFont).stringWidth(labelText) / 2)), (int) y - 5);
+                d.drawString(labelText, labelColor, mLabelFont, (int) (mx + (msx / 2) - (d.getFontMetrics(mLabelFont).stringWidth(labelText) / 2)), (int) my - 5);
             }
         }
     }

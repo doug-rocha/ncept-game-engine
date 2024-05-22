@@ -119,6 +119,7 @@ public class GameManager {
             currentLevel.update(win, this);
             ObjectManager.UPDATE(win, this);
             GUIManager.UPDATE(win);
+            Properties.LAST_MOD = GraphicsCore.LAST_MOD_RESOL;
             Properties.MOD_CHANGED = GraphicsCore.modHasChanged();
             GraphicsCore.LAST_MOD_RESOL = GraphicsCore.MOD_RESOL;
             win.ticks++;

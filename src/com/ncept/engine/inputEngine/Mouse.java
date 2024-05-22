@@ -78,15 +78,15 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
     }
 
     public int getX() {
-        return x;
+        return x - Properties.BUFFER_X;
     }
 
     public int getY() {
-        return y;
+        return y - Properties.BUFFER_Y;
     }
 
     public Point getCodinates() {
-        return new Point(x, y);
+        return new Point(x - Properties.BUFFER_X, y - Properties.BUFFER_Y);
     }
 
     //UNUSED

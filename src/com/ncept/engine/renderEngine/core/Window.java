@@ -10,16 +10,19 @@ import com.ncept.engine.inputEngine.Input;
 import com.ncept.engine.inputEngine.Mouse;
 import com.ncept.engine.utils.Debug;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 
 import javax.swing.JFrame;
@@ -54,6 +57,8 @@ public class Window extends JComponent {
     private transient Thread loop;
     private static boolean isRunning;
 
+    private boolean mouseHidden = false;
+
     public Window(String title, int buffer_size, GameManager gm) {
         Window.GM = gm;
 
@@ -81,6 +86,9 @@ public class Window extends JComponent {
         FRAME.addWindowStateListener((WindowEvent e) -> {
             frameWindowStateChanged(e);
         });
+        if (mouseHidden) {
+            FRAME.getContentPane().setCursor(createTransparentCursor());
+        }
     }
 
     public Window(String title, int width, int height, int buffer_size, GameManager gm) {
@@ -118,15 +126,15 @@ public class Window extends JComponent {
         if (!isRunning) {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
-        int yPos;
         if (decorated) {
-            yPos = (FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2);
+            Properties.BUFFER_Y = (FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2);
         } else {
-            yPos = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
+            Properties.BUFFER_Y = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
         }
+        Properties.BUFFER_X = FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2;
         GraphicsCore.G.drawImage(GraphicsCore.BUFFER,
-                FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2,
-                yPos,
+                Properties.BUFFER_X,
+                Properties.BUFFER_Y,
                 GraphicsCore.BUFFER.getWidth(),
                 GraphicsCore.BUFFER.getHeight(),
                 null);
@@ -316,4 +324,22 @@ public class Window extends JComponent {
         GraphicsCore.calcMods(FRAME.getWidth(), FRAME.getHeight());
         Debug.LOG(GraphicsCore.MODSIZE_X + " <- modsize -> " + GraphicsCore.MODSIZE_Y);
     }
+
+    public boolean isMouseHidden() {
+        return mouseHidden;
+    }
+
+    public void setMouseHidden(boolean mouseHidden) {
+        this.mouseHidden = mouseHidden;
+        if (mouseHidden) {
+            FRAME.getContentPane().setCursor(createTransparentCursor());
+        }
+    }
+
+    private Cursor createTransparentCursor() {
+        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+        return Toolkit.getDefaultToolkit().createCustomCursor(
+                cursorImg, new Point(0, 0), "blank cursor");
+    }
+
 }
