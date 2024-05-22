@@ -35,8 +35,6 @@ public class Window extends JComponent {
 
     private static final long serialVersionUID = 1L;
 
-    private static Graphics2D g;
-
     private static JFrame FRAME;
     private int WIDTH, HEIGHT, BUFFER_SIZE;
     private static String TITLE;
@@ -106,7 +104,8 @@ public class Window extends JComponent {
         decorated = !undecorated;
     }
 
-    public void show() {
+    
+    public void start() {
         isRunning = true;
         FRAME.setVisible(true);
         this.requestFocus();
@@ -177,6 +176,7 @@ public class Window extends JComponent {
 
     private void gameLoop() {
         loop = new Thread() {
+            @Override
             public void run() {
                 double last_time = System.nanoTime();
                 double delta = 0, delta_fps = 0;
@@ -299,6 +299,7 @@ public class Window extends JComponent {
         return decorated;
     }
 
+    @Override
     public Dimension getSize() {
         return new Dimension(WIDTH, HEIGHT);
     }

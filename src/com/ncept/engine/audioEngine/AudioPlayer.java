@@ -94,7 +94,7 @@ public class AudioPlayer {
     public void stop() {
         if (decThread.isAlive()) {
             dec.stop();
-            decThread.stop();
+            decThread.interrupt();
         }
     }
 
