@@ -5,7 +5,6 @@
  */
 package com.ncept.engine.IO.levels.etc;
 
-import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class MapTileArea extends MapTile {
     public int quantX, quantY;
     public boolean random;
 
-    public MapTile[] getMapTiles(double mod_resol) {
+    public MapTile[] getMapTiles() {
         ArrayList<MapTile> tiles = new ArrayList<>();
         if (!random) {
             for (int posX = 0; posX < quantX; posX++) {
@@ -69,9 +68,5 @@ public class MapTileArea extends MapTile {
             }
         }
         return tiles.toArray(new MapTile[0]);
-    }
-
-    public MapTile[] getMapTiles() {
-        return getMapTiles(GraphicsCore.MOD_RESOL);
     }
 }
