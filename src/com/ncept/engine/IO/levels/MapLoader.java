@@ -1,36 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ncept.engine.IO.levels;
 
-import com.ncept.engine.IO.levels.etc.Map;
-import java.io.File;
+import com.ncept.engine.IO.levels.etc.MapTile;
+import com.ncept.engine.IO.levels.etc.Prefab;
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
- * @author Douglas Rocha de Oliveira - NonaCept
+ * @author Douglas Rocha de Oliveira
  */
 public abstract class MapLoader {
 
-    protected XMLMapParser mapParser;
-    protected String filePath;
     protected Object mapa;
     protected boolean loaded;
+    protected String filePath;
     protected Class mapClass;
+    protected String prefabsFolder = "res/levels/prefabs/";
 
-    public MapLoader(String file_path) {
+    public MapLoader(String filePath) {
         loaded = false;
-        this.filePath = file_path;
-        mapParser = new XMLMapParser(Map.class);
-    }
-
-    public MapLoader(String file_path, Class mapClass) {
-        loaded = false;
-        this.filePath = file_path;
-        this.mapClass = mapClass;
-        mapParser = new XMLMapParser(this.mapClass);
+        this.filePath = filePath;
     }
 
     public Class getMapClass() {
@@ -45,36 +34,15 @@ public abstract class MapLoader {
         return loaded;
     }
 
-    public String getMapName() {
-        String retorno = "";
-        if (loaded) {
-            retorno = ((Map)mapa).name;
-        } else {
-            throw new IllegalStateException("Wait for the load to end");
-        }
-        return retorno;
-    }
-
-    public String getBGMName() {
-        String retorno = "";
-        if (loaded) {
-            retorno = ((Map)mapa).bgm;
-        } else {
-            throw new IllegalStateException("Wait for the load to end");
-        }
-        return retorno;
-    }
-
-    public void loadMap() {
-        mapa = mapClass.cast(mapParser.loadMap(new File(filePath)));
-        
-        createObjects();
-        loaded = true;
-    }
-
-    public void addAlias(String alias, Class classe) {
-        mapParser.addAlias(alias, classe);
-    }
-
     protected abstract void createObjects();
+    
+    public abstract String getMapName();
+    
+    public abstract String getBGMName();
+    
+    public abstract void loadMap() throws IOException;
+    
+    public abstract void loadPrefabs() throws IOException;
+    
+    public abstract List<MapTile> createPrefabTiles(Prefab prefab, Object map);
 }

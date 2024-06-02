@@ -11,3 +11,5 @@ A simple game engine in Java
 [JLayer](https://github.com/umjammer/jlayer/releases/tag/1.0.1)
 
 [xStream 1.14.11.1, xmlpull, xpp3](http://x-stream.github.io/download.html)
+
+[gson](https://github.com/google/gson)

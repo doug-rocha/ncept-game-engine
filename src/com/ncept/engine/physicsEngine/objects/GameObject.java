@@ -26,8 +26,8 @@ public abstract class GameObject {
     protected Color color;
     protected Rectangle hitbox;
 
-    private double mx, my, msx, msy;
-    private Rectangle mHitbox;
+    protected double mx, my, msx, msy;
+    protected Rectangle mHitbox;
     private double lastMod;
 
     protected boolean colliding;

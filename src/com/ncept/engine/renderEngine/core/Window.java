@@ -75,6 +75,7 @@ public class Window extends JComponent {
         FRAME.pack();
         FRAME.setResizable(true);
         FRAME.setLocationRelativeTo(null);
+        decorated = !FRAME.isUndecorated();
         FRAME.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {

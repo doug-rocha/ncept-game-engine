@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.IO.levels.etc;
 
+import com.ncept.engine.physicsEngine.objects.etc.ObjectType;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
@@ -16,7 +17,7 @@ public class MapTile {
 
     public int x, y, sx, sy;
     public String img;
-    public Enum type;
+    public ObjectType type;
     public boolean colored;
     public int color_r, color_g, color_b, color_a;
     public int hb_x, hb_y, hb_sx, hb_sy;

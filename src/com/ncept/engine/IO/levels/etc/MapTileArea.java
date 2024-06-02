@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.IO.levels.etc;
 
+import com.ncept.engine.renderEngine.core.GraphicsCore;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.util.ArrayList;
 
@@ -69,11 +70,10 @@ public class MapTileArea extends MapTile {
                 }
             }
         }
-        MapTile[] Tile = tiles.toArray(new MapTile[tiles.size()]);
-        return Tile;
+        return tiles.toArray(new MapTile[0]);
     }
 
     public MapTile[] getMapTiles() {
-        return getMapTiles(1.0);
+        return getMapTiles(GraphicsCore.MOD_RESOL);
     }
 }

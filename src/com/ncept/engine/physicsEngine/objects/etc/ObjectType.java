@@ -11,5 +11,6 @@ package com.ncept.engine.physicsEngine.objects.etc;
  */
 public enum ObjectType {
     PLAYER,
-    BLOCK
+    BLOCK,
+    ITEM
 }

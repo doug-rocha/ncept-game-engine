@@ -18,6 +18,7 @@ public class Map {
     public String bgm;
     public MapTile[] tiles;
     public MapTileArea[] tilesAreas;
+    public Prefab[] prefabs;
     public int playerX, playerY;
     
 }

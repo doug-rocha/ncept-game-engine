@@ -14,6 +14,7 @@ import java.io.File;
  *
  * @author Douglas Rocha de Oliveira - NonaCept
  */
+@Deprecated
 public class XMLMapParser {
 
     protected XStream xStream;
