@@ -43,12 +43,12 @@ public abstract class GameObject {
     public void render(Window win, Drawer d) {
         if (doDraw) {
             if (hasImage) {
-                d.drawImage(image, (int) mx, (int) my, (int) msx, (int) msy);
+                d.drawImage(image, (int) mx, (int) my, (int) Math.round(msx), (int) Math.round(msy));
             } else {
                 if (color == null) {
                     color = Color.WHITE;
                 }
-                d.fillRect((int) mx, (int) my, (int) msx, (int) msy, color);
+                d.fillRect((int) mx, (int) my, (int) Math.round(msx), (int) Math.round(msy), color);
             }
             if (drawHitbox && hasColision) {
                 d.fillRect((int) (mHitbox.x + this.mx), (int) (mHitbox.y + this.my), mHitbox.width, mHitbox.height, new Color(25, 50, 150, 100));
