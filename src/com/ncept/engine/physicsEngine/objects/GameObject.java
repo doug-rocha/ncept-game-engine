@@ -124,8 +124,12 @@ public abstract class GameObject {
     }
 
     public void recalculateSize() {
-        if (GraphicsCore.MOD_RESOL != lastMod) {
-            mHitbox = new Rectangle(calcSize(hitbox.x), calcSize(hitbox.y), calcSize(hitbox.width), calcSize(hitbox.height));
+        recalculateSize(false);
+    }
+
+    public void recalculateSize(boolean forced) {
+        if ((GraphicsCore.MOD_RESOL != lastMod) || forced) {
+            mHitbox = new Rectangle((int) calcSize(hitbox.x), (int) calcSize(hitbox.y), (int) calcSize(hitbox.width), (int) calcSize(hitbox.height));
             msx = calcSize(sx);
             msy = calcSize(sy);
         }
@@ -134,7 +138,7 @@ public abstract class GameObject {
         lastMod = GraphicsCore.MOD_RESOL;
     }
 
-    protected int calcSize(double value) {
-        return GraphicsCore.calcSize(value);
+    protected double calcSize(double value) {
+        return GraphicsCore.calcSizeDouble(value);
     }
 }

@@ -189,6 +189,13 @@ public class Drawer {
         fillShape(shape);
         g.setPaint(old_paint);
     }
+    
+    public void drawLine(int x, int y, int fx, int fy, Color color){
+        Color oldColor = g.getColor();
+        g.setColor(color);
+        g.drawLine(x, y, fx, fy);
+        g.setColor(oldColor);
+    }
 
     public void clear(Color clear_color) {
         Color old = g.getColor();
@@ -196,4 +203,6 @@ public class Drawer {
         g.fillRect(-cameraX, -cameraY, Properties.BUFFER_WIDTH, Properties.BUFFER_HEIGHT);
         g.setColor(old);
     }
+    
+    
 }

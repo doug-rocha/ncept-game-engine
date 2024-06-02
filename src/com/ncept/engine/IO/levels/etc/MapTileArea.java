@@ -20,8 +20,6 @@ public class MapTileArea extends MapTile {
     public boolean random;
 
     public MapTile[] getMapTiles(double mod_resol) {
-        sx = (int) (sx * mod_resol);
-        sy = (int) (sy * mod_resol);
         ArrayList<MapTile> tiles = new ArrayList<>();
         if (!random) {
             for (int posX = 0; posX < quantX; posX++) {
