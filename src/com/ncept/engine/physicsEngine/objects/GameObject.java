@@ -18,7 +18,7 @@ import java.awt.Rectangle;
  *
  * @author Douglas Rocha de Oliveira - NonaCept
  */
-public abstract class GameObject {
+public abstract class GameObject implements Comparable<GameObject> {
 
     protected double x, y, sx, sy;
     protected boolean doDraw = true, didDraw, hasImage, isDestroyed, drawHitbox, hasColision;
@@ -33,6 +33,8 @@ public abstract class GameObject {
     protected boolean colliding;
     protected Point collidingPoint = new Point();
     protected Point oldCollidingPoint = new Point();
+
+    private Integer zIndex = 0;
 
     public abstract Enum getType();
 
@@ -123,6 +125,14 @@ public abstract class GameObject {
         return colliding;
     }
 
+    public Integer getzIndex() {
+        return zIndex;
+    }
+
+    public void setzIndex(Integer zIndex) {
+        this.zIndex = zIndex;
+    }
+
     public void recalculateSize() {
         recalculateSize(false);
     }
@@ -140,5 +150,10 @@ public abstract class GameObject {
 
     protected double calcSize(double value) {
         return GraphicsCore.calcSizeDouble(value);
+    }
+
+    @Override
+    public int compareTo(GameObject o) {
+        return zIndex.compareTo(o.getzIndex());
     }
 }

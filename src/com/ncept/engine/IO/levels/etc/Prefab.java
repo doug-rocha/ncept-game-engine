@@ -11,4 +11,5 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class Prefab {
     public String prefabName;
     public int x, y;
+    public int zIndex;
 }

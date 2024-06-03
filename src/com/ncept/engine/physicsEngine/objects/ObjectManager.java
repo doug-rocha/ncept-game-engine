@@ -9,6 +9,7 @@ import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.GameManager;
 import com.ncept.engine.renderEngine.core.Window;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,7 +28,7 @@ public class ObjectManager {
         Objects.add(go);
     }
 
-    public static void ADD_OBJECT_LIST(ArrayList<GameObject> go) {
+    public static void ADD_OBJECT_LIST(List<GameObject> go) {
         Objects.addAll(go);
     }
 

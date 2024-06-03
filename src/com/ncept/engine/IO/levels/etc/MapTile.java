@@ -22,4 +22,5 @@ public class MapTile {
     public int color_r, color_g, color_b, color_a;
     public int hb_x, hb_y, hb_sx, hb_sy;
     public boolean colision;
+    public int zIndex;
 }

@@ -78,6 +78,7 @@ public abstract class JSONMapLoader extends MapLoader {
             for (MapTile tile : ((Map) map).tiles) {
                 tile.x += prefab.x;
                 tile.y += prefab.y;
+                tile.zIndex += prefab.zIndex;
                 prefabTiles.add(tile);
             }
         }
@@ -85,6 +86,7 @@ public abstract class JSONMapLoader extends MapLoader {
             for (MapTileArea tileArea : ((Map) map).tilesAreas) {
                 tileArea.x += prefab.x;
                 tileArea.y += prefab.y;
+                tileArea.zIndex += prefab.zIndex;
                 prefabTiles.addAll(Arrays.asList(tileArea.getMapTiles()));
             }
         }

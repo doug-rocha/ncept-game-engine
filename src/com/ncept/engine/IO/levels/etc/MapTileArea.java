@@ -40,6 +40,7 @@ public class MapTileArea extends MapTile {
                     tile.hb_sx = hb_sx;
                     tile.hb_sy = hb_sy;
                     tile.colision = colision;
+                    tile.zIndex = zIndex;
                     tiles.add(tile);
                 }
             }
@@ -63,6 +64,7 @@ public class MapTileArea extends MapTile {
                     tile.hb_sx = hb_sx;
                     tile.hb_sy = hb_sy;
                     tile.colision = colision;
+                    tile.zIndex = zIndex;
                     tiles.add(tile);
                 }
             }
