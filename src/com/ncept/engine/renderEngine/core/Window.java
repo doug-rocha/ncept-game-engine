@@ -48,7 +48,7 @@ public class Window extends JComponent {
     private static Mouse MOUSE = new Mouse();
 
     int frames, ticks, time;
-    private int lastFrames, lastTicks;
+    private int lastFrames, lastTicks, skippedFrames, skippedTicks;
 
     private boolean decorated;
 
@@ -105,7 +105,6 @@ public class Window extends JComponent {
         decorated = !undecorated;
     }
 
-    
     public void start() {
         isRunning = true;
         FRAME.setVisible(true);
@@ -200,10 +199,18 @@ public class Window extends JComponent {
                     while (delta >= 1) {
                         GM.update();
                         delta--;
+                        if (delta >= 5) {
+                            skippedTicks += delta;
+                            delta = 0;
+                        }
                     }
                     while (delta_fps >= 1) {
                         GM.render();
                         delta_fps--;
+                        if (delta_fps >= 5) {
+                            skippedFrames += delta_fps;
+                            delta_fps = 0;
+                        }
                     }
                     if (now >= next) {
                         next++;
@@ -211,8 +218,9 @@ public class Window extends JComponent {
                         lastFrames = frames;
                         lastTicks = ticks;
                         Debug.LOG("FPS: " + lastFrames + ", TICKS: " + lastTicks);
-                        frames = 0;
-                        ticks = 0;
+                        Debug.LOG("Frames skipped: " + skippedFrames + ", Ticks skipped: " + skippedTicks);
+                        skippedFrames = skippedTicks = 0;
+                        frames = ticks = 0;
                     }
                 }
             }
