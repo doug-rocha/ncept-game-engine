@@ -62,7 +62,9 @@ public abstract class JSONMapLoader extends MapLoader {
     public void loadPrefabs() throws IOException {
         if (((Map) mapa).prefabs != null) {
             List<MapTile> tileList = new ArrayList();
-            tileList.addAll(Arrays.asList(((Map) mapa).tiles));
+            if (((Map) mapa).tiles != null) {
+                tileList.addAll(Arrays.asList(((Map) mapa).tiles));
+            }
             for (Prefab pre : ((Map) mapa).prefabs) {
                 Object aux = mapParser.loadMap(prefabsFolder + pre.prefabName);
                 tileList.addAll(createPrefabTiles(pre, aux));

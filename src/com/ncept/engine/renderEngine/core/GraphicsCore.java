@@ -29,14 +29,14 @@ public class GraphicsCore {
     }
 
     public static int calcSize(double value) {
-        return (int) calcSizeDouble(value);
+        return (int) Math.round(calcSizeDouble(value));
     }
 
     public static double calcSizeDouble(double value) {
         return value * MOD_RESOL;
     }
-    
-    static boolean modHasChanged(){
+
+    static boolean modHasChanged() {
         return LAST_MOD_RESOL != MOD_RESOL;
     }
 }

@@ -45,12 +45,12 @@ public abstract class GameObject implements Comparable<GameObject> {
     public void render(Window win, Drawer d) {
         if (doDraw) {
             if (hasImage) {
-                d.drawImage(image, (int) mx, (int) my, (int) Math.round(msx), (int) Math.round(msy));
+                d.drawImage(image, (int) mx, (int) my, (int) msx, (int) msy);
             } else {
                 if (color == null) {
                     color = Color.WHITE;
                 }
-                d.fillRect((int) mx, (int) my, (int) Math.round(msx), (int) Math.round(msy), color);
+                d.fillRect((int) mx, (int) my, (int) msx, (int) msy, color);
             }
             if (drawHitbox && hasColision) {
                 d.fillRect((int) (mHitbox.x + this.mx), (int) (mHitbox.y + this.my), mHitbox.width, mHitbox.height, new Color(25, 50, 150, 100));
@@ -140,12 +140,12 @@ public abstract class GameObject implements Comparable<GameObject> {
     public void recalculateSize(boolean forced) {
         if ((GraphicsCore.MOD_RESOL != lastMod) || forced) {
             mHitbox = new Rectangle((int) calcSize(hitbox.x), (int) calcSize(hitbox.y), (int) calcSize(hitbox.width), (int) calcSize(hitbox.height));
-            msx = calcSize(sx);
-            msy = calcSize(sy);
+            msx = Math.round(calcSize(sx));
+            msy = Math.round(calcSize(sy));
+            mx = calcSize(x);
+            my = calcSize(y);
+            lastMod = GraphicsCore.MOD_RESOL;
         }
-        mx = calcSize(x);
-        my = calcSize(y);
-        lastMod = GraphicsCore.MOD_RESOL;
     }
 
     protected double calcSize(double value) {

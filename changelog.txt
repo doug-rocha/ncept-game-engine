@@ -21,7 +21,7 @@
     +[MapTileArea][fix] Calculando tamanho sem necessidade, causando objetos a ficar no tamanho e posição errados;
     +[MidiPlayer] Classe adicionada;
     +[Mouse] getX() e getY() retornam os valores de acordo com a posição no novo Buffer (valor final, não precisar de modificadores);
-    +[ObjectType] Adiciona ITEM;
+    +[ObjectType] Adicionado ITEM;
     +[Prefab] Classe adiconada - disponibiliza campos para (de)serialização, agora também é possível carregar arquivos com estruturas pre construidas nos mapas;
     +[Properties] Adicionada propriedade MOD_CHANGED pra tornar fácil a verificação na mudança do tamanho;
     +[Properties] Adicionado BUFFER_X e BUFFER_Y para ajudar a calcular a posição do mouse;
@@ -29,7 +29,7 @@
     +[Window] Atualiza os valores de Properties.BUFFER_X e Properties.BUFFER_Y;
     +[Window] Adicionada boolean isMouseHidden() e metodo setMouseHidden(boolean) - como o nome sugere pode ocultar o cursor do mouse;
     +[Window] renomeado metodo show() para start();
-    +[Window][fix] Janela agora reconhece se esté decorada mesmo que não seja explicatamente informada;
+    +[Window][fix] Janela agora reconhece se está decorada, mesmo que não seja explicatamente informada;
     +[XMLMapLoader] Antigo MapLoader, depreciado por enquanto, suporte para prefabs ainda não adicionado;
     +[XMLMapParser] Antigo MapParser, também depreciado por não suportar prefabs;
     +Limpeza de código e metodo depreciados;
