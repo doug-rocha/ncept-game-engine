@@ -1,5 +1,6 @@
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.IO.levels.json;
 
+import com.ncept.engine.IO.levels.MapLoader;
 import com.ncept.engine.IO.levels.etc.Map;
 import com.ncept.engine.IO.levels.etc.MapTile;
 import com.ncept.engine.IO.levels.etc.MapTileArea;
@@ -13,19 +14,20 @@ import java.util.List;
  *
  * @author Douglas Rocha de Oliveira
  */
-public abstract class JSONMapLoader extends MapLoader {
+@Deprecated
+public abstract class MapLoaderJSON extends MapLoader {
 
-    protected JSONMapParser mapParser;
+    protected MapParserJSON mapParser;
 
-    public JSONMapLoader(String filePath) {
+    public MapLoaderJSON(String filePath) {
         super(filePath);
-        mapParser = new JSONMapParser(Map.class);
+        mapParser = new MapParserJSON(Map.class);
     }
 
-    public JSONMapLoader(String filePath, Class mapClass) {
+    public MapLoaderJSON(String filePath, Class mapClass) {
         super(filePath);
         this.mapClass = mapClass;
-        mapParser = new JSONMapParser(mapClass);
+        mapParser = new MapParserJSON(mapClass);
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.inputEngine;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.utils.Debug;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -30,7 +30,7 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
         if (DownButtons.indexOf(btn) == -1) {
             PressedButtons.add(btn);
             DownButtons.add(btn);
-            if (Properties.DEBUG_MODE) {
+            if (EngineProperties.DEBUG_MODE) {
                 Debug.LOG("button added " + btn);
             }
         }
@@ -78,15 +78,15 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
     }
 
     public int getX() {
-        return x - Properties.BUFFER_X;
+        return x - EngineProperties.BUFFER_X;
     }
 
     public int getY() {
-        return y - Properties.BUFFER_Y;
+        return y - EngineProperties.BUFFER_Y;
     }
 
     public Point getCodinates() {
-        return new Point(x - Properties.BUFFER_X, y - Properties.BUFFER_Y);
+        return new Point(x - EngineProperties.BUFFER_X, y - EngineProperties.BUFFER_Y);
     }
 
     //UNUSED

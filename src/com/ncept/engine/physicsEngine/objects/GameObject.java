@@ -108,8 +108,8 @@ public abstract class GameObject implements Comparable<GameObject> {
     }
 
     public void setPos(double x, double y) {
-        this.mx = x;
-        this.my = y;
+        this.x = x;
+        this.y = y;
     }
 
     public void setColliding(boolean colliding) {
@@ -146,6 +146,11 @@ public abstract class GameObject implements Comparable<GameObject> {
             my = calcSize(y);
             lastMod = GraphicsCore.MOD_RESOL;
         }
+    }
+
+    public void setSizes(int sx, int sy) {
+        this.sx = sx;
+        this.sy = sy;
     }
 
     protected double calcSize(double value) {

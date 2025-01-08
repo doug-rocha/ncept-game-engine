@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.renderEngine.core;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.utils.Debug;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -22,8 +22,8 @@ public class GraphicsCore {
     static double LAST_MOD_RESOL = 1.0;
 
     public static void calcMods(int frameWidth, int frameHeight) {
-        MODSIZE_X = Double.valueOf(frameWidth) / Properties.ORIGINAL_WIDTH;
-        MODSIZE_Y = Double.valueOf(frameHeight) / Properties.ORIGINAL_HEIGHT;
+        MODSIZE_X = Double.valueOf(frameWidth) / EngineProperties.ORIGINAL_WIDTH;
+        MODSIZE_Y = Double.valueOf(frameHeight) / EngineProperties.ORIGINAL_HEIGHT;
         MOD_RESOL = MODSIZE_X < MODSIZE_Y ? MODSIZE_X : MODSIZE_Y;
         Debug.LOG(MOD_RESOL);
     }

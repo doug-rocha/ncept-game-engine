@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.renderEngine.core;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.inputEngine.Input;
 import com.ncept.engine.inputEngine.Mouse;
 import com.ncept.engine.utils.Debug;
@@ -61,8 +61,8 @@ public class Window extends JComponent {
         Window.GM = gm;
 
         TITLE = title;
-        WIDTH = Properties.WIDTH;
-        HEIGHT = Properties.HEIGHT;
+        WIDTH = EngineProperties.WIDTH;
+        HEIGHT = EngineProperties.HEIGHT;
         BUFFER_SIZE = buffer_size;
 
         setFocusable(true);
@@ -92,8 +92,8 @@ public class Window extends JComponent {
 
     public Window(String title, int width, int height, int buffer_size, GameManager gm) {
         this(title, buffer_size, gm);
-        Properties.WIDTH = Properties.ORIGINAL_WIDTH = WIDTH = width;
-        Properties.HEIGHT = Properties.ORIGINAL_HEIGHT = HEIGHT = height;
+        EngineProperties.WIDTH = EngineProperties.ORIGINAL_WIDTH = WIDTH = width;
+        EngineProperties.HEIGHT = EngineProperties.ORIGINAL_HEIGHT = HEIGHT = height;
         updateSizes(true);
     }
 
@@ -126,14 +126,14 @@ public class Window extends JComponent {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
         if (decorated) {
-            Properties.BUFFER_Y = (FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2);
+            EngineProperties.BUFFER_Y = (FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2) < 31 ? 31 : (FRAME.getHeight() / 2) - (GraphicsCore.BUFFER.getHeight() / 2);
         } else {
-            Properties.BUFFER_Y = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
+            EngineProperties.BUFFER_Y = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
         }
-        Properties.BUFFER_X = FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2;
+        EngineProperties.BUFFER_X = FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2;
         GraphicsCore.G.drawImage(GraphicsCore.BUFFER,
-                Properties.BUFFER_X,
-                Properties.BUFFER_Y,
+                EngineProperties.BUFFER_X,
+                EngineProperties.BUFFER_Y,
                 GraphicsCore.BUFFER.getWidth(),
                 GraphicsCore.BUFFER.getHeight(),
                 null);
@@ -147,7 +147,7 @@ public class Window extends JComponent {
     }
 
     public void close() {
-        if (Properties.DEBUG_MODE) {
+        if (EngineProperties.DEBUG_MODE) {
             Debug.LOG("WINDOW >> CLOSING APPLICATION");
         }
         FRAME.dispose();
@@ -187,13 +187,13 @@ public class Window extends JComponent {
                 int next = 1;
 
                 while (isRunning()) {
-                    ns = 1e9 / Properties.UPDATE_SPEED;
-                    ns_fps = 1e9 / Properties.FRAMES_PS;
+                    ns = 1e9 / EngineProperties.UPDATE_SPEED;
+                    ns_fps = 1e9 / EngineProperties.FRAMES_PS;
                     double now_time = System.nanoTime();
                     double now = (System.currentTimeMillis() - start) / 1000;
 
                     delta += (now_time - last_time) / ns;
-                    Properties.DELTA_TIME = (now_time - last_time) / 1000.0;
+                    EngineProperties.DELTA_TIME = (now_time - last_time) / 1000.0;
                     delta_fps += (now_time - last_time) / ns_fps;
                     last_time = now_time;
                     while (delta >= 1) {
@@ -229,11 +229,11 @@ public class Window extends JComponent {
     }
 
     public void setTps(int ticks_ps) {
-        Properties.UPDATE_SPEED = ticks_ps;
+        EngineProperties.UPDATE_SPEED = ticks_ps;
     }
 
     public void setFps(int frames_ps) {
-        Properties.FRAMES_PS = frames_ps;
+        EngineProperties.FRAMES_PS = frames_ps;
     }
 
     public static Drawer getDrawer() {
@@ -259,11 +259,11 @@ public class Window extends JComponent {
     }
 
     private void updateSizes(boolean frame_too) {
-        setPreferredSize(new Dimension(Properties.WIDTH, Properties.HEIGHT));
-        setSize(new Dimension(Properties.WIDTH, Properties.HEIGHT));
+        setPreferredSize(new Dimension(EngineProperties.WIDTH, EngineProperties.HEIGHT));
+        setSize(new Dimension(EngineProperties.WIDTH, EngineProperties.HEIGHT));
         if (frame_too) {
             FRAME.setVisible(false);
-            FRAME.setSize(Properties.WIDTH, Properties.HEIGHT);
+            FRAME.setSize(EngineProperties.WIDTH, EngineProperties.HEIGHT);
             FRAME.setLocationRelativeTo(null);
             FRAME.setVisible(true);
             Debug.LOG("Size Frame " + FRAME.getWidth() + " | " + FRAME.getHeight());
@@ -275,15 +275,15 @@ public class Window extends JComponent {
     }
 
     public void setSizes(int width, int height) {
-        Properties.WIDTH = width;
-        Properties.HEIGHT = height;
+        EngineProperties.WIDTH = width;
+        EngineProperties.HEIGHT = height;
         updateSizes(true);
     }
 
     public void setSizes(int width, int height, boolean newProportion) {
         if (newProportion) {
-            Properties.ORIGINAL_WIDTH = width;
-            Properties.ORIGINAL_HEIGHT = height;
+            EngineProperties.ORIGINAL_WIDTH = width;
+            EngineProperties.ORIGINAL_HEIGHT = height;
         }
         setSizes(width, height);
     }
@@ -323,8 +323,8 @@ public class Window extends JComponent {
 
     private void procSizes() {
         if (FRAME.isVisible()) {
-            Properties.WIDTH = WIDTH = FRAME.getWidth();
-            Properties.HEIGHT = HEIGHT = FRAME.getHeight();
+            EngineProperties.WIDTH = WIDTH = FRAME.getWidth();
+            EngineProperties.HEIGHT = HEIGHT = FRAME.getHeight();
             updateDrawer();
         }
     }

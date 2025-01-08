@@ -1,4 +1,4 @@
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.IO.levels.json;
 
 import com.google.gson.Gson;
 import java.io.File;
@@ -11,13 +11,14 @@ import java.nio.file.Paths;
  *
  * @author Douglas Rocha de Oliveira
  */
-public class JSONMapParser {
+@Deprecated
+public class MapParserJSON {
 
     protected Gson gson;
 
     protected Class classToLoad;
 
-    public JSONMapParser(Class classToLoad) {
+    public MapParserJSON(Class classToLoad) {
         this.classToLoad = classToLoad;
         gson = new Gson();
     }

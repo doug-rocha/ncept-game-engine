@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.IO.levels.xml;
 
 import com.ncept.engine.IO.levels.etc.MapTile;
 import com.ncept.engine.IO.levels.etc.MapTileArea;
@@ -15,13 +15,13 @@ import java.io.File;
  * @author Douglas Rocha de Oliveira - NonaCept
  */
 @Deprecated
-public class XMLMapParser {
+public class MapParserXML {
 
     protected XStream xStream;
 
     protected Class classToLoad;
 
-    public XMLMapParser(Class class_to_load) {
+    public MapParserXML(Class class_to_load) {
         this.classToLoad = class_to_load;
         xStream = new XStream();
         xStream.alias("ncept", classToLoad);

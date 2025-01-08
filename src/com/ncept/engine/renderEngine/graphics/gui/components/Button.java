@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.renderEngine.graphics.gui.components;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.audioEngine.AudioClip;
 import com.ncept.engine.audioEngine.AudioPlayer;
 import com.ncept.engine.events.ButtonEvent;
@@ -115,7 +115,7 @@ public class Button extends GUI {
                 this.frameColor = borderClickedColor;
                 this.backColor = bgClickedColor;
                 if (clickFX != null) {
-                    new AudioPlayer(clickFX, Properties.VOLUME).play();
+                    new AudioPlayer(clickFX, EngineProperties.VOLUME).play();
                 }
 
             } else if (clicked && m.isMouseUp(Input.MOUSE_LEFT)) {
@@ -133,7 +133,7 @@ public class Button extends GUI {
                 this.frameColor = borderHoverColor;
                 this.backColor = bgHoverColor;
                 if (scrollFX != null) {
-                    new AudioPlayer(scrollFX, Properties.VOLUME).play();
+                    new AudioPlayer(scrollFX, EngineProperties.VOLUME).play();
                 }
             }
         } else if (hover) {

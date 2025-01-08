@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.renderEngine.core;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
 import java.awt.Color;
 import java.awt.Font;
@@ -31,9 +31,9 @@ public class Drawer {
 
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
-        GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(Properties.ORIGINAL_WIDTH), GraphicsCore.calcSize(Properties.ORIGINAL_HEIGHT) - (win.isDecorated() ? 31 : 0), BufferedImage.TYPE_INT_ARGB);
-        Properties.BUFFER_WIDTH = GraphicsCore.BUFFER.getWidth();
-        Properties.BUFFER_HEIGHT = GraphicsCore.BUFFER.getHeight();
+        GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(EngineProperties.ORIGINAL_WIDTH), GraphicsCore.calcSize(EngineProperties.ORIGINAL_HEIGHT) - (win.isDecorated() ? 31 : 0), BufferedImage.TYPE_INT_ARGB);
+        EngineProperties.BUFFER_WIDTH = GraphicsCore.BUFFER.getWidth();
+        EngineProperties.BUFFER_HEIGHT = GraphicsCore.BUFFER.getHeight();
         this.g = (Graphics2D) GraphicsCore.BUFFER.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(Color.WHITE);
@@ -200,7 +200,7 @@ public class Drawer {
     public void clear(Color clear_color) {
         Color old = g.getColor();
         g.setColor(clear_color);
-        g.fillRect(-cameraX, -cameraY, Properties.BUFFER_WIDTH, Properties.BUFFER_HEIGHT);
+        g.fillRect(-cameraX, -cameraY, EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
         g.setColor(old);
     }
     

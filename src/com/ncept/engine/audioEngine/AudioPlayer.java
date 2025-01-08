@@ -5,7 +5,7 @@
  */
 package com.ncept.engine.audioEngine;
 
-import com.ncept.engine.Properties;
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.audioEngine.decoder.Decoder;
 import com.ncept.engine.utils.Debug;
 
@@ -27,7 +27,7 @@ public class AudioPlayer {
         paused = false;
         dec = new Decoder();
         decThread = new Thread(dec);
-        setVolume(Properties.VOLUME);
+        setVolume(EngineProperties.VOLUME);
     }
 
     public AudioPlayer(AudioClip SFX) {
@@ -80,7 +80,7 @@ public class AudioPlayer {
             decThread = new Thread(dec);
             decThread.start();
         } else {
-            if (Properties.DEBUG_MODE) {
+            if (EngineProperties.DEBUG_MODE) {
                 Debug.LOG("Nenhum arquivo selecionado, não vai tocar nada");
             }
         }

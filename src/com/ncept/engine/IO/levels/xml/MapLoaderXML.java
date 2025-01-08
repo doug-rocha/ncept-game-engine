@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.IO.levels.xml;
 
+import com.ncept.engine.IO.levels.MapLoader;
 import com.ncept.engine.IO.levels.etc.Map;
 import java.io.File;
 
@@ -13,19 +14,19 @@ import java.io.File;
  * @author Douglas Rocha de Oliveira - NonaCept
  */
 @Deprecated
-public abstract class XMLMapLoader extends MapLoader {
+public abstract class MapLoaderXML extends MapLoader {
 
-    protected XMLMapParser mapParser;
+    protected MapParserXML mapParser;
 
-    public XMLMapLoader(String filePath) {
+    public MapLoaderXML(String filePath) {
         super(filePath);
-        mapParser = new XMLMapParser(Map.class);
+        mapParser = new MapParserXML(Map.class);
     }
 
-    public XMLMapLoader(String filePath, Class mapClass) {
+    public MapLoaderXML(String filePath, Class mapClass) {
         super(filePath);
         this.mapClass = mapClass;
-        mapParser = new XMLMapParser(this.mapClass);
+        mapParser = new MapParserXML(this.mapClass);
     }
 
     @Override

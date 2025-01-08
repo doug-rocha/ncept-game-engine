@@ -9,7 +9,7 @@ package com.ncept.engine;
  *
  * @author Douglas Rocha de Oliveira - NonaCept
  */
-public class Properties {
+public class EngineProperties {
 
     public static final String ENGINE_VERSION = "0.3.0-dev";
 
