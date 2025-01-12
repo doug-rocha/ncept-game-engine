@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.physicsEngine.objects;
 
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.GameManager;
 import com.ncept.engine.renderEngine.core.GraphicsCore;
@@ -53,7 +54,7 @@ public abstract class GameObject implements Comparable<GameObject> {
                 d.fillRect((int) mx, (int) my, (int) msx, (int) msy, color);
             }
             if (drawHitbox && hasColision) {
-                d.fillRect((int) (mHitbox.x + this.mx), (int) (mHitbox.y + this.my), mHitbox.width, mHitbox.height, new Color(25, 50, 150, 100));
+                d.fillRect((int) (mHitbox.x + this.mx), (int) (mHitbox.y + this.my), mHitbox.width, mHitbox.height, new Color(255, 50, 150, 100));
             }
             didDraw = true;
         }
@@ -87,7 +88,9 @@ public abstract class GameObject implements Comparable<GameObject> {
 
     public void setHitbox(Rectangle box) {
         this.hitbox = box;
+        this.mHitbox = hitbox;
         this.setColidable(true);
+        this.drawHitbox = EngineProperties.DEBUG_MODE;
     }
 
     public void setHitbox(int bx, int by, int bsx, int bsy) {

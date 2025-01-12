@@ -1,100 +1,70 @@
 package com.ncept.engine.IO.levels.json;
 
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.IO.levels.MapLoader;
-import com.ncept.engine.IO.levels.etc.Map;
-import com.ncept.engine.IO.levels.etc.MapTile;
-import com.ncept.engine.IO.levels.etc.MapTileArea;
-import com.ncept.engine.IO.levels.etc.Prefab;
+import com.ncept.engine.utils.Debug;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Properties;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
+ * Used to load JSON files and process its information for creation of the tiles
  *
  * @author Douglas Rocha de Oliveira
  */
-@Deprecated
-public abstract class MapLoaderJSON extends MapLoader {
+public class MapLoaderJSON extends MapLoader {
 
-    protected MapParserJSON mapParser;
-
+    /**
+     * @param filePath the file path for the JSON map, this file must contains
+     * information about the map, and the tiles/prefabs dependencies
+     */
     public MapLoaderJSON(String filePath) {
         super(filePath);
-        mapParser = new MapParserJSON(Map.class);
-    }
-
-    public MapLoaderJSON(String filePath, Class mapClass) {
-        super(filePath);
-        this.mapClass = mapClass;
-        mapParser = new MapParserJSON(mapClass);
     }
 
     @Override
-    public String getMapName() {
-        String retorno;
-        if (loaded) {
-            retorno = ((Map) mapa).name;
-        } else {
-            throw new IllegalStateException("Wait for the load to end");
+    protected void loadProperties() throws IOException {
+        props = new Properties();
+        BufferedReader br = new BufferedReader(new FileReader(mapFile));
+        String line, stringJson = "";
+        while ((line = br.readLine()) != null) {
+            stringJson += line;
         }
-        return retorno;
+        parseJson(stringJson);
     }
 
-    @Override
-    public String getBGMName() {
-        String retorno = "";
-        if (loaded) {
-            retorno = ((Map) mapa).bgm;
-        } else {
-            throw new IllegalStateException("Wait for the load to end");
+    private void parseJson(String json) {
+        JSONObject jsonObject = new JSONObject(json);
+        if (!jsonObject.has("name") || !jsonObject.has("file")) {
+            throw new RuntimeException("Error loading " + mapFile.getName() + "\nMake sure name and file are set");
         }
-        return retorno;
-    }
-
-    @Override
-    public void loadMap() throws IOException {
-        mapa = mapParser.loadMap(filePath);
-        loadPrefabs();
-        createObjects();
-        loaded = true;
-    }
-
-    @Override
-    public void loadPrefabs() throws IOException {
-        if (((Map) mapa).prefabs != null) {
-            List<MapTile> tileList = new ArrayList();
-            if (((Map) mapa).tiles != null) {
-                tileList.addAll(Arrays.asList(((Map) mapa).tiles));
-            }
-            for (Prefab pre : ((Map) mapa).prefabs) {
-                Object aux = mapParser.loadMap(prefabsFolder + pre.prefabName);
-                tileList.addAll(createPrefabTiles(pre, aux));
-            }
-            ((Map) mapa).tiles = tileList.toArray(new MapTile[0]);
+        props.put("name", jsonObject.getString("name"));
+        props.put("file", jsonObject.getString("file"));
+        if (jsonObject.has("bgm")) {
+            props.put("bgm", jsonObject.getString("bgm"));
         }
+        if (jsonObject.has("prefabs")) {
+            parseJsonPrefabs(jsonObject.getJSONArray("prefabs"));
+        }
+        if (jsonObject.has("spawn")) {
+            //TODO SPAWN POINT CODE
+        }
+        if (jsonObject.has("tileSize")) {
+            props.put("tileSize", jsonObject.getString("tileSize"));
+        }
+        applyProperties();
     }
 
-    @Override
-    public List<MapTile> createPrefabTiles(Prefab prefab, Object map) {
-        List<MapTile> prefabTiles = new ArrayList();
-        if (((Map) map).tiles != null) {
-            for (MapTile tile : ((Map) map).tiles) {
-                tile.x += prefab.x;
-                tile.y += prefab.y;
-                tile.zIndex += prefab.zIndex;
-                prefabTiles.add(tile);
+    private void parseJsonPrefabs(JSONArray jsonPrefabsArray) {
+        for (int i = 0; i < jsonPrefabsArray.length(); i++) {
+            JSONObject obj = jsonPrefabsArray.getJSONObject(i);
+            if (obj.has("file") && obj.has("key")) {
+                prefabs.put(obj.getString("key"), new File(prefabsFolder + (obj.getString("file").endsWith(".prefab") ? obj.getString("file") : obj.getString("file") + ".prefab")));
             }
         }
-        if (((Map) map).tilesAreas != null) {
-            for (MapTileArea tileArea : ((Map) map).tilesAreas) {
-                tileArea.x += prefab.x;
-                tileArea.y += prefab.y;
-                tileArea.zIndex += prefab.zIndex;
-                prefabTiles.addAll(Arrays.asList(tileArea.getMapTiles()));
-            }
-        }
-        return prefabTiles;
     }
-
 }
