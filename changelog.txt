@@ -1,3 +1,28 @@
+0.3.1-dev:
+    +[EngineProperties] Renomeado de Properties;
+    +[GameObject] Adicionado zIndex, controla a ordem em que os objetos são desenhados, organizados durante loading;
+    +[GameObject] Removido Math.round() em toda varíavel de posição do mouse;
+    +[GameObject][fix] Pequeno ajuste nas posições;
+    +[GameObject] Sempre desenha a hitbox quando EngineProperties.DEBUG_MODE for true;
+    +[GameObjectAir] Novo GameObject, usado por padrão caso os objectos definidos não sejam devidamente associados/localizados, chave 0;
+    +[GraphicsCore] Usando Math.round() em calcSize();
+    +[JSONMapLoader] Prevenido contra um NullPointerException;
+    +[Map] Removido;
+    +[MapLoader] Refatorado, novo padrão de carregamento de arquivos;
+    +[MapLoaderFactory] Retorna uma implementação de MapLoader dependendo da extensão do arquivo fornecido;
+    +[MapLoaderJSON] Movido e renomeado;
+    +[MapLoaderJSON] Refatorado para atender o novo padrão;
+    +[MapLoaderTiles] Classe Adicionada, carrega tile maps partindo de arquivos de propriedades;
+    +[MapLoaderXML] Removido;
+    +[MapParserJSON] Removido;
+    +[MapParserXML] Removido;
+    +[MapTile] Removido;
+    +[MapTileArea] Removido;
+    +[Prefab] Removido;
+    +[ObjectType] Adicionado AIR;
+    +[ObjectType] Adicionado fromValue() e toString();
+    +[Window] Pula frames e ticks se necessário (em teste);
+    +Dependências atualizadas
 0.3.0-dev:
     +[Button][fix] setText(texto) não fazia nada;
     +[Collision] Refatorado isMouseColliding(gui) para identificar mouse sobre gui corretamente;
