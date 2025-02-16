@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.renderEngine.graphics.gui.components;
 
+import com.ncept.engine.EngineProperties;
 import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.Window;
 import com.ncept.engine.renderEngine.graphics.gui.GUI;
@@ -31,7 +32,7 @@ public class ProgressBar extends GUI {
         this.y = y;
         this.sx = sx;
         this.sy = sy;
-        showWireFrame = true; //@todo remover -> wireframe
+        showWireFrame = EngineProperties.DEBUG_MODE;
         labelFont = new Font("dialog", Font.BOLD, 14);
         labelColor = Color.WHITE;
         widthMod = 0.0;
@@ -65,7 +66,7 @@ public class ProgressBar extends GUI {
         if (doDraw) {
             if (glow) {
                 for (int i = 0; i <= 5; i++) {
-                    glowingColor = new Color(glowingColor.getRed(), glowingColor.getBlue(), glowingColor.getBlue(), glowingTime / (i + 1));
+                    glowingColor = new Color(glowingColor.getRed(), glowingColor.getGreen(), glowingColor.getBlue(), glowingTime / (i + 1));
                     if (rounded) {
                         d.drawRoundRect((int) mx - i, (int) my - i, (int) msx + (i * 2), (int) msy + (i * 2), (int) ru, (int) rd, glowingColor);
                     } else {

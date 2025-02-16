@@ -34,6 +34,7 @@ public class MapLoaderJSON extends MapLoader {
         while ((line = br.readLine()) != null) {
             stringJson += line;
         }
+        br.close();
         parseJson(stringJson);
     }
 

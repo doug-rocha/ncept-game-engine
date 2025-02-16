@@ -28,6 +28,7 @@ public class MapLoaderTiles extends MapLoader {
         if (!props.containsKey("name") || !props.containsKey("file")) {
             throw new RuntimeException("Error loading " + mapFile.getName() + "\nMake sure name and file are set");
         }
+        br.close();
         applyProperties();
     }
 

@@ -37,6 +37,8 @@ public abstract class GameObject implements Comparable<GameObject> {
 
     private Integer zIndex = 0;
 
+    private boolean outBoundRender;
+
     public abstract Enum getType();
 
     public void setColor(Color color) {
@@ -164,4 +166,19 @@ public abstract class GameObject implements Comparable<GameObject> {
     public int compareTo(GameObject o) {
         return zIndex.compareTo(o.getzIndex());
     }
+
+    public boolean isOnScreen(Drawer d) {
+        Rectangle rect1 = new Rectangle((int) Math.round(mx), (int) Math.round(my), (int) Math.round(msx), (int) Math.round(msy));
+        Rectangle rect2 = new Rectangle(-d.getCX(), -d.getCY(), EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
+        return rect1.intersects(rect2);
+    }
+
+    public boolean isOutBoundRender() {
+        return outBoundRender;
+    }
+
+    public void setOutBoundRender(boolean outBoundRender) {
+        this.outBoundRender = outBoundRender;
+    }
+
 }

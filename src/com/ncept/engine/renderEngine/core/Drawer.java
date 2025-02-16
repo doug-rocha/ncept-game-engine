@@ -87,6 +87,21 @@ public class Drawer {
         g.setFont(old_font);
     }
 
+    public void drawString(String str, Paint paint, Font font, int x, int y) {
+        Paint old_paint = g.getPaint();
+        g.setPaint(paint);
+
+        Font old_font = g.getFont();
+        if (font != null) {
+            g.setFont(font);
+        }
+
+        g.drawString(str, x, y);
+
+        g.setPaint(old_paint);
+        g.setFont(old_font);
+    }
+
     public void fillRect(int x, int y, int sx, int sy) {
         g.fillRect(x, y, sx, sy);
     }
@@ -107,6 +122,8 @@ public class Drawer {
     }
 
     public void moveCamera(int mx, int my) {
+        mx = GraphicsCore.calcSize(mx);
+        my = GraphicsCore.calcSize(my);
         cameraX += mx;
         cameraY += my;
         g.translate(mx, my);
@@ -189,8 +206,8 @@ public class Drawer {
         fillShape(shape);
         g.setPaint(old_paint);
     }
-    
-    public void drawLine(int x, int y, int fx, int fy, Color color){
+
+    public void drawLine(int x, int y, int fx, int fy, Color color) {
         Color oldColor = g.getColor();
         g.setColor(color);
         g.drawLine(x, y, fx, fy);
@@ -203,6 +220,5 @@ public class Drawer {
         g.fillRect(-cameraX, -cameraY, EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
         g.setColor(old);
     }
-    
-    
+
 }

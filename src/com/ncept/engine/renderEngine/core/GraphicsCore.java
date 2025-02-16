@@ -39,4 +39,8 @@ public class GraphicsCore {
     static boolean modHasChanged() {
         return LAST_MOD_RESOL != MOD_RESOL;
     }
+
+    public static double subCalcSizeDouble(double value) {
+        return value / MOD_RESOL;
+    }
 }

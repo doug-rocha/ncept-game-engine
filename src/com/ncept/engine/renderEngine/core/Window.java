@@ -53,6 +53,7 @@ public class Window extends JComponent {
     private boolean decorated;
 
     private transient Thread loop;
+    private transient Thread renderLoop;
     private static boolean isRunning;
 
     private boolean mouseHidden = false;
@@ -179,22 +180,20 @@ public class Window extends JComponent {
             @Override
             public void run() {
                 double last_time = System.nanoTime();
-                double delta = 0, delta_fps = 0;
+                double delta = 0;
 
-                double ns, ns_fps;
+                double ns;
 
                 double start = System.currentTimeMillis();
                 int next = 1;
 
                 while (isRunning()) {
                     ns = 1e9 / EngineProperties.UPDATE_SPEED;
-                    ns_fps = 1e9 / EngineProperties.FRAMES_PS;
                     double now_time = System.nanoTime();
                     double now = (System.currentTimeMillis() - start) / 1000;
 
                     delta += (now_time - last_time) / ns;
                     EngineProperties.DELTA_TIME = (now_time - last_time) / 1000.0;
-                    delta_fps += (now_time - last_time) / ns_fps;
                     last_time = now_time;
                     while (delta >= 1) {
                         GM.update();
@@ -204,14 +203,7 @@ public class Window extends JComponent {
                             delta = 0;
                         }
                     }
-                    while (delta_fps >= 1) {
-                        GM.render();
-                        delta_fps--;
-                        if (delta_fps >= 5) {
-                            skippedFrames += delta_fps;
-                            delta_fps = 0;
-                        }
-                    }
+
                     if (now >= next) {
                         next++;
                         time++;
@@ -225,7 +217,33 @@ public class Window extends JComponent {
                 }
             }
         };
+        renderLoop = new Thread() {
+            @Override
+            public void run() {
+                double last_time = System.nanoTime();
+                double delta_fps = 0;
+                double ns_fps;
+
+                while (isRunning()) {
+
+                    ns_fps = 1e9 / EngineProperties.FRAMES_PS;
+                    double now_time = System.nanoTime();
+                    delta_fps += (now_time - last_time) / ns_fps;
+                    last_time = now_time;
+                    while (delta_fps >= 1) {
+                        GM.render();
+                        delta_fps--;
+                        if (delta_fps >= 5) {
+                            skippedFrames += delta_fps;
+                            delta_fps = 0;
+                        }
+                    }
+                }
+            }
+        };
         loop.start();
+        renderLoop.start();
+
     }
 
     public void setTps(int ticks_ps) {

@@ -42,6 +42,8 @@ public abstract class MapLoader {
 
     protected List<GameObject> gObjects = new ArrayList();
 
+    protected double completion = 1;
+
     public MapLoader(String filePath) {
         loaded = false;
         this.mapFile = new File(filePath);
@@ -101,9 +103,13 @@ public abstract class MapLoader {
         if (EngineProperties.DEBUG_MODE) {
             Debug.LOG("Starting the map loading for " + mapFile.getName());
         }
+        completion = 1;
         loadProperties();
+        completion = 10;
         loadTileFile();
+        completion = 85;
         createObjects();
+        completion = 100;
         loaded = true;
         if (EngineProperties.DEBUG_MODE) {
             Debug.LOG("Load finished!");
@@ -129,8 +135,13 @@ public abstract class MapLoader {
             Debug.LOG("Loading tiles for " + tileFile.getName());
         }
         BufferedReader br = new BufferedReader(new FileReader(tileFile));
+        long lines = br.lines().count();
+        br.close();
+        br = new BufferedReader(new FileReader(tileFile));
         String line;
         int mx, my = 0;
+        completion = 15;
+        double progress = (80.0 * 100.0) / (double)lines;
         while ((line = br.readLine()) != null) {
             String[] lineArr = line.trim().split(" ");
             mx = 0;
@@ -148,7 +159,11 @@ public abstract class MapLoader {
                 mx++;
             }
             my++;
+            if (completion < 95 && my % 100 == 0) {
+                completion += progress;
+            }
         }
+        br.close();
         if (EngineProperties.DEBUG_MODE) {
             Debug.LOG("Tiles loaded!");
         }
@@ -236,9 +251,14 @@ public abstract class MapLoader {
             mpy++;
         }
         tileSize = oldTileSize;
+        br.close();
         if (EngineProperties.DEBUG_MODE) {
             Debug.LOG("Prefab parsed");
         }
+    }
+
+    public int getCompletion() {
+        return (int) completion;
     }
 
 }
