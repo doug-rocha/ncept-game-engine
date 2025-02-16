@@ -20,21 +20,23 @@ public class ObjectManager {
     private static ArrayList<GameObject> Objects = new ArrayList<GameObject>();
 
     /**
-     * Adiciona um objeto ao jogo
-     *
-     * @param go objeto a ser adicionado
+     * add an object to game
+     * @param go object to be added
      */
     public static void ADD_OBJECT(GameObject go) {
         Objects.add(go);
     }
     
+    /**
+     * add a List of objects to game
+     * @param go 
+     */
     public static void ADD_OBJECT_LIST(List<GameObject> go) {
         Objects.addAll(go);
     }
 
     /**
-     * Remove um objeto do jogo
-     *
+     * Remove an object from game
      * @param go objeto a ser removido
      */
     public static void REMOVE_OBJECT(GameObject go) {
@@ -42,12 +44,17 @@ public class ObjectManager {
     }
 
     /**
-     * Limpa todos os objetos do jogo
+     * Clear all the objects
      */
     public static void FLUSH_OBJECTS() {
         Objects.clear();
     }
     
+    /**
+     * update all the objects
+     * @param win the game Window
+     * @param gm the GameManager that manage everything
+     */
     public static void UPDATE(Window win, GameManager gm) {
         for (int i = 0; i < Objects.size(); i++) {
             GameObject go = Objects.get(i);
@@ -59,7 +66,11 @@ public class ObjectManager {
             }
         }
     }
-    
+    /**
+     * render all objcts that need to be rendered
+     * @param win the game Window
+     * @param d the Drawer where the draw calls are placed
+     */
     public static void RENDER(Window win, Drawer d) {
         for (int i = 0; i < Objects.size(); i++) {
             GameObject go = Objects.get(i);
@@ -68,11 +79,19 @@ public class ObjectManager {
             }
         }
     }
-    
+    /**
+     * Get all the game objects
+     * @return a list of the objects in game
+     */
     public static ArrayList<GameObject> GET_OBJECTS() {
         return Objects;
     }
     
+    /**
+     * Get an object index
+     * @param go the object to be located
+     * @return the index of said object on the list
+     */
     public static int GET_OBJECT_INDEX(GameObject go) {
         int retorno = -1;
         for (int i = 0; i < Objects.size(); i++) {
@@ -82,7 +101,11 @@ public class ObjectManager {
         }
         return retorno;
     }
-    
+    /**
+     * Get an object by it's index
+     * @param index the index of the object
+     * @return an object corresponding of the index
+     */
     public static GameObject GET(int index) {
         return Objects.get(index);
     }

@@ -181,29 +181,34 @@ public class Window extends JComponent {
             public void run() {
                 double last_time = System.nanoTime();
                 double delta = 0;
+                double delta2 = 0;
 
                 double ns;
 
                 double start = System.currentTimeMillis();
+                double last_time2 = start;
                 int next = 1;
 
                 while (isRunning()) {
                     ns = 1e9 / EngineProperties.UPDATE_SPEED;
                     double now_time = System.nanoTime();
+                    double now_time2;
                     double now = (System.currentTimeMillis() - start) / 1000;
 
                     delta += (now_time - last_time) / ns;
-                    EngineProperties.DELTA_TIME = (now_time - last_time) / 1000.0;
-                    last_time = now_time;
+
                     while (delta >= 1) {
+                        now_time2 = System.currentTimeMillis();
+                        EngineProperties.DELTA_TIME = (now_time2 - last_time2) / 1000.0;
                         GM.update();
+                        last_time2 = now_time2;
                         delta--;
                         if (delta >= 5) {
                             skippedTicks += delta;
                             delta = 0;
                         }
                     }
-
+                    last_time = now_time;
                     if (now >= next) {
                         next++;
                         time++;
@@ -211,6 +216,7 @@ public class Window extends JComponent {
                         lastTicks = ticks;
                         Debug.LOG("FPS: " + lastFrames + ", TICKS: " + lastTicks);
                         Debug.LOG("Frames skipped: " + skippedFrames + ", Ticks skipped: " + skippedTicks);
+                        Debug.LOG("Delta: " + EngineProperties.DELTA_TIME);
                         skippedFrames = skippedTicks = 0;
                         frames = ticks = 0;
                     }
