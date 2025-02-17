@@ -169,7 +169,7 @@ public abstract class GameObject implements Comparable<GameObject> {
 
     public boolean isOnScreen(Drawer d) {
         Rectangle rect1 = new Rectangle((int) Math.round(mx), (int) Math.round(my), (int) Math.round(msx), (int) Math.round(msy));
-        Rectangle rect2 = new Rectangle(-d.getCX(), -d.getCY(), EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
+        Rectangle rect2 = new Rectangle((int) -d.getMCX(), (int) -d.getMCY(), EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
         return rect1.intersects(rect2);
     }
 

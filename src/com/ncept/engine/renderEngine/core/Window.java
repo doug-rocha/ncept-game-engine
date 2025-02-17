@@ -59,6 +59,14 @@ public class Window extends JComponent {
     private boolean mouseHidden = false;
 
     public Window(String title, int buffer_size, GameManager gm) {
+        this(title, EngineProperties.WIDTH, EngineProperties.HEIGHT, buffer_size, gm);
+    }
+
+    public Window(String title, int width, int height, int buffer_size, GameManager gm) {
+        this(title, width, height, buffer_size, false, gm);
+    }
+
+    public Window(String title, int width, int height, int buffer_size, boolean undecorated, GameManager gm) {
         Window.GM = gm;
 
         TITLE = title;
@@ -89,21 +97,17 @@ public class Window extends JComponent {
         if (mouseHidden) {
             FRAME.getContentPane().setCursor(createTransparentCursor());
         }
-    }
 
-    public Window(String title, int width, int height, int buffer_size, GameManager gm) {
-        this(title, buffer_size, gm);
         EngineProperties.WIDTH = EngineProperties.ORIGINAL_WIDTH = WIDTH = width;
         EngineProperties.HEIGHT = EngineProperties.ORIGINAL_HEIGHT = HEIGHT = height;
         updateSizes(true);
-    }
 
-    public Window(String title, int width, int height, int buffer_size, boolean undecorated, GameManager gm) {
-        this(title, width, height, buffer_size, gm);
         FRAME.dispose();
         FRAME.setUndecorated(undecorated);
         FRAME.setVisible(true);
         decorated = !undecorated;
+        EngineProperties.BUFFER_ORIGINAL_WIDTH = EngineProperties.ORIGINAL_WIDTH;
+        EngineProperties.BUFFER_ORIGINAL_HEIGHT = EngineProperties.ORIGINAL_HEIGHT - (isDecorated() ? 31 : 0);
     }
 
     public void start() {
@@ -181,7 +185,6 @@ public class Window extends JComponent {
             public void run() {
                 double last_time = System.nanoTime();
                 double delta = 0;
-                double delta2 = 0;
 
                 double ns;
 

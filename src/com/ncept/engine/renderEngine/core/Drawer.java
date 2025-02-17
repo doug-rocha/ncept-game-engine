@@ -6,6 +6,7 @@
 package com.ncept.engine.renderEngine.core;
 
 import com.ncept.engine.EngineProperties;
+import com.ncept.engine.renderEngine.graphics.gui.etc.Camera;
 import com.ncept.engine.renderEngine.graphics.imaging.Image;
 import java.awt.Color;
 import java.awt.Font;
@@ -26,8 +27,6 @@ public class Drawer {
 
     private final Graphics2D g;
     private BufferStrategy st;
-
-    private int cameraX, cameraY;
 
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
@@ -114,27 +113,32 @@ public class Drawer {
         g.setColor(color);
     }
 
-    public void setCameraPos(int cx, int cy) {
-        g.translate(-cameraX, -cameraY);
-        cameraX = cx;
-        cameraY = cy;
-        g.translate(cameraX, cameraY);
+    public synchronized void setCameraPos(int cx, int cy) {
+        Camera.setPosition(cx, cy);
+        g.translate(-g.getTransform().getTranslateX() + Camera.getModifiedPosition().x, -g.getTransform().getTranslateY() + Camera.getModifiedPosition().y);
     }
 
-    public void moveCamera(int mx, int my) {
+    public synchronized void moveCamera(int mx, int my) {
+        Camera.setPosition(Camera.getPosition().x + mx, Camera.getPosition().y + my);
         mx = GraphicsCore.calcSize(mx);
         my = GraphicsCore.calcSize(my);
-        cameraX += mx;
-        cameraY += my;
         g.translate(mx, my);
     }
 
     public int getCX() {
-        return cameraX;
+        return Camera.getPosition().x;
     }
 
     public int getCY() {
-        return cameraY;
+        return Camera.getPosition().y;
+    }
+
+    public int getMCX() {
+        return Camera.getModifiedPosition().x;
+    }
+
+    public int getMCY() {
+        return Camera.getModifiedPosition().y;
     }
 
     public void fillRect(int x, int y, int sx, int sy, Color color) {
@@ -217,7 +221,7 @@ public class Drawer {
     public void clear(Color clear_color) {
         Color old = g.getColor();
         g.setColor(clear_color);
-        g.fillRect(-cameraX, -cameraY, EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
+        g.fillRect(-Camera.getModifiedPosition().x, -Camera.getModifiedPosition().y, EngineProperties.BUFFER_WIDTH, EngineProperties.BUFFER_HEIGHT);
         g.setColor(old);
     }
 

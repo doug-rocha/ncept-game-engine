@@ -6,8 +6,10 @@
 package com.ncept.engine.renderEngine.core;
 
 import com.ncept.engine.EngineProperties;
+import com.ncept.engine.events.ModResolListener;
 import com.ncept.engine.physicsEngine.objects.ObjectManager;
 import com.ncept.engine.renderEngine.graphics.gui.GUIManager;
+import com.ncept.engine.renderEngine.graphics.gui.etc.Camera;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -15,12 +17,16 @@ import java.util.ArrayList;
  *
  * @author Douglas Rocha de Oliveira - NonaCept
  */
-public class GameManager {
+public class GameManager implements ModResolListener {
 
     private ArrayList<GameLevel> levels = new ArrayList<>();
     private ArrayList<GameLevel> sceneLevels = new ArrayList<>();
     private GameLevel currentLevel;
     private Window win;
+
+    public GameManager() {
+        GraphicsCore.addModResolListener(this);
+    }
 
     //GAME ACCESS
     public void addLevel(GameLevel level) {
@@ -131,6 +137,13 @@ public class GameManager {
 
     private boolean isLevelOpen() {
         return currentLevel != null;
+    }
+
+    @Override
+    public void onModResolChange(double newModResol) {
+        ObjectManager.UPDATE_SIZES();
+        GUIManager.UPDATE_SIZES();
+        Window.getDrawer().setCameraPos(Camera.getPosition().x, Camera.getPosition().y);
     }
 
 }

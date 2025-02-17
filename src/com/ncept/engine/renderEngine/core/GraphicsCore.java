@@ -6,9 +6,12 @@
 package com.ncept.engine.renderEngine.core;
 
 import com.ncept.engine.EngineProperties;
+import com.ncept.engine.events.ModResolListener;
 import com.ncept.engine.utils.Debug;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,26 +24,39 @@ public class GraphicsCore {
     public static double MODSIZE_X, MODSIZE_Y, MOD_RESOL = 1.0;
     static double LAST_MOD_RESOL = 1.0;
 
+    private static List<ModResolListener> listeners = new ArrayList<>();
+
     public static void calcMods(int frameWidth, int frameHeight) {
         MODSIZE_X = Double.valueOf(frameWidth) / EngineProperties.ORIGINAL_WIDTH;
         MODSIZE_Y = Double.valueOf(frameHeight) / EngineProperties.ORIGINAL_HEIGHT;
         MOD_RESOL = MODSIZE_X < MODSIZE_Y ? MODSIZE_X : MODSIZE_Y;
+        if (modHasChanged()) {
+            notifyModResolChange();
+        }
         Debug.LOG(MOD_RESOL);
     }
 
-    public static int calcSize(double value) {
+    public static synchronized int calcSize(double value) {
         return (int) Math.round(calcSizeDouble(value));
     }
 
-    public static double calcSizeDouble(double value) {
+    public static synchronized double calcSizeDouble(double value) {
         return value * MOD_RESOL;
     }
 
-    static boolean modHasChanged() {
+    static synchronized boolean modHasChanged() {
         return LAST_MOD_RESOL != MOD_RESOL;
     }
 
-    public static double subCalcSizeDouble(double value) {
+    public static synchronized double subCalcSizeDouble(double value) {
         return value / MOD_RESOL;
+    }
+
+    public static synchronized void addModResolListener(ModResolListener listener) {
+        listeners.add(listener);
+    }
+
+    private static void notifyModResolChange() {
+        listeners.forEach(x -> x.onModResolChange(MOD_RESOL));
     }
 }

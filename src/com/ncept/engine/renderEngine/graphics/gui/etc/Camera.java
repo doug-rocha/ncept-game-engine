@@ -5,6 +5,7 @@
  */
 package com.ncept.engine.renderEngine.graphics.gui.etc;
 
+import com.ncept.engine.renderEngine.core.GraphicsCore;
 import java.awt.Point;
 
 /**
@@ -16,8 +17,12 @@ public class Camera {
     private static double targetOldX, targetOldY;
     private static Point oldPoint = new Point();
 
+    private static final Point position = new Point();
+    private static final Point mPosition = new Point();
+
     public static Point calculatePos(double target_x, double target_y, double target_sx, double target_sy, double min_x, double min_y, double max_x, double max_y) {
         Point retorno = oldPoint;
+
         int onScreenx = (int) (target_x + retorno.x);
         int onScreeny = (int) (target_y + retorno.y);
         if (onScreenx < min_x) {
@@ -43,4 +48,26 @@ public class Camera {
         oldPoint = retorno;
         return retorno;
     }
+
+    public static Point getPosition() {
+        return position;
+    }
+
+    public static void setPosition(Point position) {
+        setPosition(position.getX(), position.getY());
+    }
+
+    public static synchronized void setPosition(double x, double y) {
+        position.setLocation(x, y);
+        recalcModifiedPosition();
+    }
+
+    public static Point getModifiedPosition() {
+        return mPosition;
+    }
+
+    public static void recalcModifiedPosition() {
+        mPosition.setLocation(GraphicsCore.calcSizeDouble(position.getX()), GraphicsCore.calcSizeDouble(position.getY()));
+    }
+
 }

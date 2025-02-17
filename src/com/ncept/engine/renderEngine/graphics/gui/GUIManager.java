@@ -33,16 +33,19 @@ public class GUIManager {
             GUI gui = Objects.get(i);
             if (gui.doDraw) {
                 gui.update(win);
-                gui.recalculateSize();
             }
         }
     }
 
     public static void ADD_LIST(ArrayList<GUI> objects) {
+        for (GUI gui : objects) {
+            gui.recalculateSize();
+        }
         Objects.addAll(objects);
     }
 
     public static void ADD(GUI gui) {
+        gui.recalculateSize();
         Objects.add(gui);
     }
 
@@ -70,6 +73,14 @@ public class GUIManager {
 
     public static ArrayList<GUI> GET_OBJECTS() {
         return Objects;
+    }
+
+    public static void UPDATE_SIZES() {
+        for (GUI gui : Objects) {
+            if (gui.doDraw) {
+                gui.recalculateSize();
+            }
+        }
     }
 
 }
