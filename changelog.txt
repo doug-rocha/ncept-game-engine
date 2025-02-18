@@ -1,7 +1,31 @@
+0.3.2-dev:
+    +[Camera] Novos getPosition(), setPosition(), getModifiedPosition() e recalcModifiedPosition() todos usados para um bom funcionamento da câmera, mesmo quando tamanho alterado;
+    +[Drawer] Novo método drawString() com um argumento Paint;
+    +[Drawer] Removidas variáveis cameraX e cameraY;
+    +[Drawer] Refatorados setCameraPos(), moveCamera() e clear(), para uso apropriado da câmera;
+    +[EngineProperties] Adicionados BUFFER_ORIGINAL_WIDHT e ORIGINAL_BUFFER_HEIGHT;
+    +[GameManager] Implementa ModResolListener;
+    +[GameObject] Novos isOnScreen() e isOutBoundRender(), usados para determinar se o objeto deve ser renderizado;
+    +[GraphicsCore] Novo subCalcSizeDouble(), retorna o valor removendo o modificador;
+    +[GraphicsCore] Novos notifyModResolChange() e addModResolListener(), para notificar mudanças no modificador de resolução;
+    +[GUIManager] Calcula tamanho do objeto ao adicioná-lo;
+    +[GUIManager] Novo UPDATE_SIZES() usado pelo GameManager quando notificado por mudanças no modificador;
+    +[MapLoader] Novo getCompletion(), retorna a porcentagem concluída do carregamento;
+    +[MapLoaderJSON][fix] Fechando um Reader que foi esquecido;
+    +[MapLoaderTiles][fix] Fechando um Reader que foi esquecido;
+    +[ModResolListener] Interface adicionada, usada para ser notificado de mudanças no modificador de resolução;
+    +[ObjectManager] Verifica se o objeto deve ser renderizado;
+    +[ObjectManager] Calcula tamanho do objeto ao adicioná-lo;
+    +[ObjectManager] Novo UPDATE_SIZES() usado pelo GameManager quando notificado por mudanças no modificador;
+    +[ProgressText] Novo objeto GUI, um texto que também é uma barra de progresso;
+    +[Window] Atualização e renderização são threads independentes agora;
+    +[Window] EngineProperties.DELTA_TIME calculado somente quanto uma atualização é executada;
+    +[Window][fix] erro de calculo do EngineProperties.DELTA_TIME, misturando valores em milisegundos e nanosegundos, causando confusão;
+    +[Window] Construtores refatorados;
 0.3.1-dev:
     +[EngineProperties] Renomeado de Properties;
     +[GameObject] Adicionado zIndex, controla a ordem em que os objetos são desenhados, organizados durante loading;
-    +[GameObject] Removido Math.round() em toda varíavel de posição do mouse;
+    +[GameObject] Removido Math.round() em toda variável de posição do mouse;
     +[GameObject][fix] Pequeno ajuste nas posições;
     +[GameObject] Sempre desenha a hitbox quando EngineProperties.DEBUG_MODE for true;
     +[GameObjectAir] Novo GameObject, usado por padrão caso os objectos definidos não sejam devidamente associados/localizados, chave 0;
