@@ -67,11 +67,13 @@ public abstract class GUI {
     public void setPos(double x, double y) {
         this.x = x;
         this.y = y;
+        recalculatePosition();
     }
 
     public void setSize(double sx, double sy) {
         this.sx = sx;
         this.sy = sy;
+        recalculateSize();
     }
 
     public abstract void update(Window win);
@@ -108,6 +110,10 @@ public abstract class GUI {
         if (labelFont != null) {
             mLabelFont = labelFont.deriveFont(labelFont.getStyle(), calcSize(labelFont.getSize()));
         }
+        recalculatePosition();
+    }
+    
+    private void recalculatePosition() {
         mx = calcSize(x);
         my = calcSize(y);
         mLabelX = calcSize(labelX);
@@ -119,4 +125,5 @@ public abstract class GUI {
     }
 
     public abstract void setText(String string);
+
 }

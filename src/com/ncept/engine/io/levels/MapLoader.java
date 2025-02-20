@@ -1,9 +1,10 @@
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.io.levels;
 
 import com.ncept.engine.EngineProperties;
 import com.ncept.engine.physicsEngine.objects.GameObject;
 import com.ncept.engine.physicsEngine.objects.GameObjectAir;
 import com.ncept.engine.utils.Debug;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -141,7 +142,7 @@ public abstract class MapLoader {
         String line;
         int mx, my = 0;
         completion = 15;
-        double progress = (80.0 * 100.0) / (double)lines;
+        double progress = (80.0 * 100.0) / (double) lines;
         while ((line = br.readLine()) != null) {
             String[] lineArr = line.trim().split(" ");
             mx = 0;
@@ -259,6 +260,13 @@ public abstract class MapLoader {
 
     public int getCompletion() {
         return (int) completion;
+    }
+
+    public Point getSpawn() {
+        if (props == null) {
+            throw new IllegalStateException("Not loaded yet!");
+        }
+        return (Point) props.get("spawn");
     }
 
 }

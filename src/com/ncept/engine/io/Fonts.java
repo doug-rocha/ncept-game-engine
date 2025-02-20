@@ -1,4 +1,4 @@
-package com.ncept.engine.IO;
+package com.ncept.engine.io;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

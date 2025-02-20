@@ -1,6 +1,9 @@
-package com.ncept.engine.IO.levels.tilemap;
+package com.ncept.engine.io.levels.tilemap;
 
-import com.ncept.engine.IO.levels.MapLoader;
+import com.ncept.engine.EngineProperties;
+import com.ncept.engine.io.levels.MapLoader;
+import com.ncept.engine.utils.Debug;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -40,7 +43,11 @@ public class MapLoaderTiles extends MapLoader {
                 prefabs.put(prefabValues[1], new File(prefabsFolder + (prefabValues[0].endsWith(".prefab") ? prefabValues[0] : prefabValues[0] + ".prefab")));
                 break;
             case "spawn":
-                //TODO SPAWN POINT CODE
+                String[] spawnValues = values[1].split(":");
+                props.put(values[0], new Point(Integer.parseInt(spawnValues[0]), Integer.parseInt(spawnValues[1])));
+                if (EngineProperties.DEBUG_MODE) {
+                    Debug.LOG("Player spawn: " + (Point) props.get("spawn"));
+                }
                 break;
             default:
                 props.put(values[0], values[1]);

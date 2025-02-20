@@ -1,8 +1,9 @@
-package com.ncept.engine.IO.levels.json;
+package com.ncept.engine.io.levels.json;
 
 import com.ncept.engine.EngineProperties;
-import com.ncept.engine.IO.levels.MapLoader;
+import com.ncept.engine.io.levels.MapLoader;
 import com.ncept.engine.utils.Debug;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -52,7 +53,18 @@ public class MapLoaderJSON extends MapLoader {
             parseJsonPrefabs(jsonObject.getJSONArray("prefabs"));
         }
         if (jsonObject.has("spawn")) {
-            //TODO SPAWN POINT CODE
+            JSONObject spawnPJson = jsonObject.getJSONObject("spawn");
+            if (spawnPJson.has("x") && spawnPJson.has("y")) {
+                Point spawnPoint = new Point(spawnPJson.getInt("x"), spawnPJson.getInt("y"));
+                props.put("spawn", spawnPoint);
+                if (EngineProperties.DEBUG_MODE) {
+                    Debug.LOG("Player spawn: " + spawnPoint);
+                }
+            } else {
+                if (EngineProperties.DEBUG_MODE) {
+                    Debug.LOG("Invalid Spawn point information, ignoring");
+                }
+            }
         }
         if (jsonObject.has("tileSize")) {
             props.put("tileSize", jsonObject.getString("tileSize"));

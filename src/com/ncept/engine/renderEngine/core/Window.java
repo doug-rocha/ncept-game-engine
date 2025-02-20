@@ -77,7 +77,6 @@ public class Window extends JComponent {
         setFocusable(true);
 
         FRAME = new JFrame(TITLE);
-        updateSizes(true);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //this.setLocation(0, 0);
         //FRAME.add(this);

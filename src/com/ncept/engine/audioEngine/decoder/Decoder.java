@@ -6,11 +6,8 @@
 package com.ncept.engine.audioEngine.decoder;
 
 import com.ncept.engine.audioEngine.AudioClip;
-import com.ncept.engine.utils.Debug;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

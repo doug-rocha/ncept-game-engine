@@ -93,6 +93,7 @@ public abstract class GameObject implements Comparable<GameObject> {
         this.mHitbox = hitbox;
         this.setColidable(true);
         this.drawHitbox = EngineProperties.DEBUG_MODE;
+        recalculateHitBox();
     }
 
     public void setHitbox(int bx, int by, int bsx, int bsy) {
@@ -115,6 +116,7 @@ public abstract class GameObject implements Comparable<GameObject> {
     public void setPos(double x, double y) {
         this.x = x;
         this.y = y;
+        recalculatePosition();
     }
 
     public void setColliding(boolean colliding) {
@@ -144,18 +146,27 @@ public abstract class GameObject implements Comparable<GameObject> {
 
     public void recalculateSize(boolean forced) {
         if ((GraphicsCore.MOD_RESOL != lastMod) || forced) {
-            mHitbox = new Rectangle((int) calcSize(hitbox.x), (int) calcSize(hitbox.y), (int) calcSize(hitbox.width), (int) calcSize(hitbox.height));
+            recalculateHitBox();
             msx = Math.round(calcSize(sx));
             msy = Math.round(calcSize(sy));
-            mx = calcSize(x);
-            my = calcSize(y);
+            recalculatePosition();
             lastMod = GraphicsCore.MOD_RESOL;
         }
+    }
+
+    private void recalculateHitBox() {
+        mHitbox = new Rectangle((int) calcSize(hitbox.x), (int) calcSize(hitbox.y), (int) calcSize(hitbox.width), (int) calcSize(hitbox.height));
+    }
+
+    private void recalculatePosition() {
+        mx = calcSize(x);
+        my = calcSize(y);
     }
 
     public void setSizes(int sx, int sy) {
         this.sx = sx;
         this.sy = sy;
+        recalculateSize(true);
     }
 
     protected double calcSize(double value) {

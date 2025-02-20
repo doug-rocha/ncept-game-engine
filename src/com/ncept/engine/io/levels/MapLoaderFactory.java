@@ -1,7 +1,7 @@
-package com.ncept.engine.IO.levels;
+package com.ncept.engine.io.levels;
 
-import com.ncept.engine.IO.levels.json.MapLoaderJSON;
-import com.ncept.engine.IO.levels.tilemap.MapLoaderTiles;
+import com.ncept.engine.io.levels.json.MapLoaderJSON;
+import com.ncept.engine.io.levels.tilemap.MapLoaderTiles;
 
 /**
  *
