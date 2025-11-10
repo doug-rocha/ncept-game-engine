@@ -31,6 +31,8 @@ public class Drawer {
     public Drawer(Window win) {
         //this.st = win.getBufferStrategy();
         GraphicsCore.BUFFER = new BufferedImage(GraphicsCore.calcSize(EngineProperties.ORIGINAL_WIDTH), GraphicsCore.calcSize(EngineProperties.ORIGINAL_HEIGHT) - (win.isDecorated() ? 31 : 0), BufferedImage.TYPE_INT_ARGB);
+        GraphicsCore.FRONT_BUFFER = new BufferedImage(EngineProperties.WIDTH, EngineProperties.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        GraphicsCore.G2 = GraphicsCore.FRONT_BUFFER.createGraphics();
         EngineProperties.BUFFER_WIDTH = GraphicsCore.BUFFER.getWidth();
         EngineProperties.BUFFER_HEIGHT = GraphicsCore.BUFFER.getHeight();
         this.g = (Graphics2D) GraphicsCore.BUFFER.createGraphics();

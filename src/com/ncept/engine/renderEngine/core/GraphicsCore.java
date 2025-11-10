@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class GraphicsCore {
 
-    public static Graphics2D G;
-    public static BufferedImage BUFFER;
+    public static Graphics2D G, G2;
+    public static BufferedImage BUFFER, FRONT_BUFFER;
     public static double MODSIZE_X, MODSIZE_Y, MOD_RESOL = 1.0;
     static double LAST_MOD_RESOL = 1.0;
 

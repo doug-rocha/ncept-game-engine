@@ -125,7 +125,7 @@ public class Window extends JComponent {
     /**
      * Atualiza o buffer exibido
      */
-    public void update() {
+    public synchronized void update() {
         if (!isRunning) {
             Debug.LOG_ERROR("WINDOW NOT INITIALIZED");
         }
@@ -135,11 +135,19 @@ public class Window extends JComponent {
             EngineProperties.BUFFER_Y = FRAME.getHeight() / 2 - GraphicsCore.BUFFER.getHeight() / 2;
         }
         EngineProperties.BUFFER_X = FRAME.getWidth() / 2 - GraphicsCore.BUFFER.getWidth() / 2;
-        GraphicsCore.G.drawImage(GraphicsCore.BUFFER,
+        GraphicsCore.G2.setColor(Color.BLACK);
+        GraphicsCore.G2.fillRect(0, 0, FRAME.getWidth(), FRAME.getHeight());
+        GraphicsCore.G2.drawImage(GraphicsCore.BUFFER,
                 EngineProperties.BUFFER_X,
                 EngineProperties.BUFFER_Y,
                 GraphicsCore.BUFFER.getWidth(),
                 GraphicsCore.BUFFER.getHeight(),
+                null);
+        GraphicsCore.G.drawImage(GraphicsCore.FRONT_BUFFER,
+                0,
+                0,
+                FRAME.getWidth(),
+                FRAME.getHeight(),
                 null);
     }
 
@@ -287,6 +295,7 @@ public class Window extends JComponent {
     private void updateSizes(boolean frame_too) {
         setPreferredSize(new Dimension(EngineProperties.WIDTH, EngineProperties.HEIGHT));
         setSize(new Dimension(EngineProperties.WIDTH, EngineProperties.HEIGHT));
+        FRAME.setMinimumSize(new Dimension(640, 480));
         if (frame_too) {
             FRAME.setVisible(false);
             FRAME.setSize(EngineProperties.WIDTH, EngineProperties.HEIGHT);

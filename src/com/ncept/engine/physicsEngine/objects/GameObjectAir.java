@@ -1,6 +1,7 @@
 package com.ncept.engine.physicsEngine.objects;
 
 import com.ncept.engine.physicsEngine.objects.etc.ObjectType;
+import com.ncept.engine.renderEngine.core.Drawer;
 import com.ncept.engine.renderEngine.core.GameManager;
 import com.ncept.engine.renderEngine.core.Window;
 import java.awt.Color;
@@ -31,4 +32,8 @@ public class GameObjectAir extends GameObject {
 
     }
 
+    @Override
+    public void render(Window win, Drawer d) {
+    }
+    
 }
